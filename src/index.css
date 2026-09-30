@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1D4ED8; /* Adjust to match the blue in the design */
+  --color-primary-hover: #1E40AF;
+  --color-bg-light: #F8FAFC;
+  --color-text-dark: #0F172A;
+  --color-text-muted: #64748B;
+  
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text-dark);
+  background-color: #ffffff;
+  /* background gradient for hero */
+  background: radial-gradient(circle at top, #EBF3FF 0%, #FFFFFF 30%);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
