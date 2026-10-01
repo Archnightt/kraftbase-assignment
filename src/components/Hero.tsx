@@ -13,7 +13,6 @@ const heroBg = {
 		'radial-gradient(ellipse 36% 55% at 0% 48%, rgba(170,194,250,0.62) 0%, transparent 72%)',
 		'radial-gradient(ellipse 36% 58% at 100% 42%, rgba(166,188,248,0.62) 0%, transparent 72%)',
 		'radial-gradient(ellipse 55% 36% at 0% 0%, rgba(196,216,255,0.8) 0%, transparent 72%)',
-		'radial-gradient(ellipse 80% 30% at 50% 100%, rgba(184,202,250,0.7) 0%, transparent 74%)',
 		'linear-gradient(180deg, #eef3ff 0%, #f5f8ff 38%, #fafcff 62%, #edf0fd 100%)',
 	].join(', '),
 };
@@ -194,7 +193,7 @@ export default function Hero() {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5 }}
-					className="mb-7 inline-flex items-center gap-3 text-[15px] font-medium text-slate-500 sm:text-[16px]">
+					className="mb-7 inline-flex items-center gap-3 text-[16px] font-medium text-slate-500 sm:text-[16px]">
 					<div className="flex -space-x-2">
 						{avatars.map((i) => (
 							<div key={i} className="h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-slate-200 shadow-sm">
@@ -206,7 +205,6 @@ export default function Hero() {
 							+5K
 						</div>
 					</div>
-
 					<span>Businesses Rely On Collectedge</span>
 				</motion.div>
 
@@ -214,7 +212,7 @@ export default function Hero() {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5, delay: 0.1 }}
-					className="mb-7 text-[52px] font-medium leading-[1.03] tracking-[-0.045em] text-[#080A1B] sm:text-[62px] md:text-[70px] lg:text-[80px] xl:text-[82px]">
+					className="mb-7 text-[50px] font-semibold leading-[1.03] tracking-[-0.045em] text-[#080A1B] sm:text-[62px] md:text-[70px] lg:text-[80px] xl:text-[82px]">
 					Unified Platform for Late-
 					<br />
 					Stage <span className="mx-1 font-light text-blue-500 lg:mx-2">|</span>

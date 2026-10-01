@@ -1,14 +1,36 @@
+import type { CSSProperties, ReactNode } from 'react';
 import CTAButton from './CTAButton';
 import { FaFacebookMessenger, FaInstagram, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 import { HiOutlineEnvelope, HiOutlineMapPin } from 'react-icons/hi2';
 
-const CX = 500;
-const BASE = 1000; // arches sit on the bottom edge of a 1000x1000 viewBox
-// a = horizontal radius, b = vertical radius, w = stroke, o = opacity
-const ARCHES = [
-	{ a: 465, b: 830, w: 10, o: 0.4 }, // inner
-	{ a: 490, b: 900, w: 10, o: 0.4 }, // outer
-];
+/*
+ * Arches = two concentric TRUE semicircles (same radius on x and y), measured from the Figma overlay.
+ * Everything is in a 1000-unit-wide space and scales uniformly with the footer width, so they never stretch.
+ */
+const VB_W = 1000;
+const VB_H = 560;
+const CX = VB_W / 2;
+const OUTER_R = 535;
+const INNER_R = 503; // gap between the arches = 32 units (~46px at 1440px)
+const PEAK_Y = -(OUTER_R - INNER_R) / 2; // outer peak is 16 units above the logo centre, inner peak 16 below
+const CY = PEAK_Y + OUTER_R; // shared centre of both circles
+
+// Logo centre measured from the top of HeroBackdrop: -top-16 (64px) + pt-2 (8px) + half of the 80px logo (40px)
+const LOGO_CENTER_PX = 112;
+
+const ARCHES = [{ r: INNER_R }, { r: OUTER_R }];
+
+// Soft fade of the lines as they approach the logo (the logo itself covers the very peak)
+const LOGO_FADE = `radial-gradient(circle at 50% ${(-PEAK_Y / VB_H) * 100}%, transparent 40px, black 200px)`;
+
+// Place a point on an arch by radius + angle from vertical (negative = left, positive = right)
+const onArch = (r: number, deg: number): CSSProperties => {
+	const rad = (deg * Math.PI) / 180;
+	return {
+		left: `${((CX + r * Math.sin(rad)) / VB_W) * 100}%`,
+		top: `${((CY - r * Math.cos(rad) - PEAK_Y) / VB_H) * 100}%`,
+	};
+};
 
 const socials = [
 	{
@@ -40,16 +62,18 @@ const socials = [
 export default function Footer() {
 	return (
 		<footer id="contact" className="relative overflow-hidden bg-white px-4 pt-8 text-[#111318] sm:px-6 md:pt-14 lg:px-8">
-			<div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-t-[44px] bg-white px-5 pt-16 sm:rounded-t-[68px] sm:px-10 md:pt-24 lg:px-16 lg:pt-32">
-				<div className="relative mx-auto mb-16 flex min-h-[400px] flex-col items-center justify-start pt-10">
+			<div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-t-[44px] bg-white px-5 pt-4 sm:rounded-t-[68px] sm:px-10 md:pt-24 lg:px-16 lg:pt-32">
+				<div className="relative mx-auto mb-16 flex min-h-[400px] flex-col items-center justify-start pt-2">
 					<HeroBackdrop />
 
 					<div className="relative z-10 mx-auto w-full max-w-[860px] text-center">
+						{/* Logo */}
 						<div className="mx-auto mb-10 grid size-[64px] place-items-center rounded-full bg-white shadow-[0_12px_38px_rgba(69,101,174,0.10)] sm:mb-12 sm:size-[80px]">
 							<img src="/logo.png" alt="Collectedge" className="h-[28px] w-[28px] object-contain sm:h-[36px] sm:w-[36px]" />
 						</div>
 
-						<p className="mb-4 text-[14px] font-semibold tracking-[-0.03em] bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-clip-text text-transparent sm:text-[16px]">
+						{/* Eyebrow */}
+						<p className="mb-4 text-[22px] font-semibold tracking-[-0.03em] bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-clip-text text-transparent sm:text-[16px]">
 							Contact Us
 						</p>
 
@@ -62,7 +86,7 @@ export default function Footer() {
 						</p>
 
 						<div className="mt-7 md:mt-8">
-							<CTAButton label="Get Started" href="#contact" size="default" />
+							<CTAButton label="Get Started" size="default" />
 						</div>
 					</div>
 				</div>
@@ -139,40 +163,61 @@ function HeroBackdrop() {
 			<div className="absolute inset-0 bg-[radial-gradient(50%_100%_at_50%_100%,#FFFFFF_25%,#CAEBFD_55%,#CED5F9_78%,#FFFFFF_98%)] opacity-60 blur-2xl [mask-image:linear-gradient(to_top,transparent_0%,black_35%)]" />
 
 			<div className="absolute inset-0 hidden md:block">
-				<svg
-					viewBox="0 0 1000 1000"
-					preserveAspectRatio="none"
-					className="absolute inset-0 h-full w-full blur-[9px] [mask-image:linear-gradient(to_top,transparent_0%,black_40%)]"
-					fill="none">
-					{ARCHES.map(({ a, b, w, o }) => (
-						<path
-							key={a}
-							d={`M ${CX - a} ${BASE} A ${a} ${b} 0 0 1 ${CX + a} ${BASE}`}
-							stroke="#D9D9D9"
-							strokeWidth={w}
-							strokeOpacity={o}
-							vectorEffect="non-scaling-stroke"
-						/>
-					))}
-				</svg>
+				{/* Arches: #D9D9D9 @ 40%, fading out towards the footer and around the logo */}
+				<div className="absolute inset-0 [mask-image:linear-gradient(to_top,transparent_0%,black_40%)]">
+					<ArchFrame style={{ maskImage: LOGO_FADE, WebkitMaskImage: LOGO_FADE }}>
+						<svg viewBox={`0 ${PEAK_Y} ${VB_W} ${VB_H}`} className="size-full overflow-visible blur-[9px]" fill="none">
+							{ARCHES.map(({ r }) => (
+								<path
+									key={r}
+									d={`M ${CX - r} ${CY} A ${r} ${r} 0 0 1 ${CX + r} ${CY}`}
+									stroke="#D9D9D9"
+									strokeWidth={10}
+									strokeOpacity={0.4}
+									vectorEffect="non-scaling-stroke"
+								/>
+							))}
+						</svg>
+					</ArchFrame>
+				</div>
 
-				{/* Outer arch: Instagram (left), YouTube (right) */}
-				<SocialBubble social={socials[0]} className="left-[14.6%] top-[51.6%]" />
-				<SocialBubble social={socials[2]} className="left-[89.2%] top-[59.4%]" />
+				{/* Bubbles ride on the same frame, so they stay on the arches at every width */}
+				<ArchFrame>
+					{/* Outer arch: Instagram (left), YouTube (right) */}
+					<SocialBubble social={socials[0]} style={onArch(OUTER_R, -40)} />
+					<SocialBubble social={socials[2]} style={onArch(OUTER_R, 46)} />
 
-				{/* Inner arch: Messenger (left), X (right) */}
-				<SocialBubble social={socials[1]} className="left-[7.6%] top-[79.1%]" />
-				<SocialBubble social={socials[3]} className="left-[93.2%] top-[83.4%]" />
+					{/* Inner arch: Messenger (left), X (right) */}
+					<SocialBubble social={socials[1]} style={onArch(INNER_R, -56)} />
+					<SocialBubble social={socials[3]} style={onArch(INNER_R, 59)} />
+				</ArchFrame>
 			</div>
 		</div>
 	);
 }
 
-function SocialBubble({ social, className }: { social: (typeof socials)[number]; className: string }) {
+// Square-scaling box (1000 x 560 units) whose arch-peak line passes through the centre of the logo
+function ArchFrame({ children, style }: { children: ReactNode; style?: CSSProperties }) {
+	return (
+		<div
+			className="absolute left-0 w-full"
+			style={{
+				top: LOGO_CENTER_PX,
+				aspectRatio: `${VB_W} / ${VB_H}`,
+				transform: `translateY(${(PEAK_Y / VB_H) * 100}%)`,
+				...style,
+			}}>
+			{children}
+		</div>
+	);
+}
+
+function SocialBubble({ social, style }: { social: (typeof socials)[number]; style: CSSProperties }) {
 	const { Icon } = social;
 	return (
 		<span
-			className={`absolute grid size-[48px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_8px_24px_rgba(94,106,134,0.12)] ${className}`}>
+			style={style}
+			className="absolute grid size-[48px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_8px_24px_rgba(94,106,134,0.12)]">
 			<Icon className={`size-[20px] ${social.className}`} />
 		</span>
 	);
