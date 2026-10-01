@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react';
 import CTAButton from './CTAButton';
-import { FaFacebookMessenger, FaInstagram, FaXTwitter, FaYoutube } from 'react-icons/fa6';
+import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 import { HiOutlineEnvelope, HiOutlineMapPin } from 'react-icons/hi2';
 
 /*
@@ -40,9 +40,9 @@ const socials = [
 		className: 'text-[#f04b70]',
 	},
 	{
-		label: 'Messenger',
-		href: 'https://www.messenger.com/',
-		Icon: FaFacebookMessenger,
+		label: 'Facebook',
+		href: 'https://www.Facebook.com/',
+		Icon: FaFacebook,
 		className: 'text-[#1e74ed]',
 	},
 	{
@@ -69,7 +69,7 @@ export default function Footer() {
 					<div className="relative z-10 mx-auto w-full max-w-[860px] text-center">
 						{/* Logo */}
 						<div className="mx-auto mb-10 grid size-[64px] place-items-center rounded-full bg-white shadow-[0_12px_38px_rgba(69,101,174,0.10)] sm:mb-12 sm:size-[80px]">
-							<img src="/logo.png" alt="Collectedge" className="h-[28px] w-[28px] object-contain sm:h-[36px] sm:w-[36px]" />
+							<img src="/logo.svg" alt="Collectedge" className="h-[28px] w-[28px] object-contain sm:h-[36px] sm:w-[36px]" />
 						</div>
 
 						{/* Eyebrow */}
@@ -117,7 +117,7 @@ export default function Footer() {
 
 					<section className="flex flex-col items-center px-4 py-4 text-center lg:py-7">
 						<a href="#top" className="inline-flex items-center gap-2 text-[20px] font-semibold tracking-[-0.045em] sm:text-[24px]">
-							<img src="/logo.png" alt="" className="size-[28px] object-contain" />
+							<img src="/logo.svg" alt="" className="size-[28px] object-contain" />
 							Collectedge
 						</a>
 						<p className="mt-5 max-w-[500px] text-[15px] leading-[1.55] tracking-[-0.02em] text-[#777b84] sm:text-[16px]">
@@ -184,12 +184,12 @@ function HeroBackdrop() {
 				{/* Bubbles ride on the same frame, so they stay on the arches at every width */}
 				<ArchFrame>
 					{/* Outer arch: Instagram (left), YouTube (right) */}
-					<SocialBubble social={socials[0]} style={onArch(OUTER_R, -40)} />
-					<SocialBubble social={socials[2]} style={onArch(OUTER_R, 46)} />
+					<SocialBubble social={socials[0]} style={{ ...onArch(OUTER_R, -40), transform: 'rotate(45deg)' }} />
+					<SocialBubble social={socials[2]} style={{ ...onArch(OUTER_R, 46), transform: 'rotate(45deg)' }} />
 
-					{/* Inner arch: Messenger (left), X (right) */}
-					<SocialBubble social={socials[1]} style={onArch(INNER_R, -56)} />
-					<SocialBubble social={socials[3]} style={onArch(INNER_R, 59)} />
+					{/* Inner arch: Facebook (left), X (right) */}
+					<SocialBubble social={socials[1]} style={{ ...onArch(INNER_R, -56), transform: 'rotate(45deg)' }} />
+					<SocialBubble social={socials[3]} style={{ ...onArch(INNER_R, 59), transform: 'rotate(-45deg)' }} />
 				</ArchFrame>
 			</div>
 		</div>

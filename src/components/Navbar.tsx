@@ -39,7 +39,7 @@ export default function Navbar() {
                 text-[14px] font-medium
                 text-[#14161a]
               ">
-							<img src="/logo.png" alt="" className="h-[22px] w-auto" />
+							<img src="/logo.svg" alt="" className="h-[22px] w-auto" />
 
 							<span>Collectedge</span>
 						</a>
