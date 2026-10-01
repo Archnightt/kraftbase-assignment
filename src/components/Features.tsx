@@ -76,6 +76,18 @@ const features: Feature[] = [
 export default function Features() {
 	return (
 		<section id="lenders" className="pt-24 pb-6 px-4 md:px-8 relative overflow-x-clip" style={sectionBg}>
+			{/* Top fade — blends into the Hero's white bottom edge */}
+			<div
+				aria-hidden="true"
+				className="pointer-events-none absolute top-0 left-0 right-0 h-32 z-0"
+				style={{ background: 'linear-gradient(to bottom, #ffffff 0%, transparent 100%)' }}
+			/>
+			{/* Bottom fade — dissolves into white before the next section */}
+			<div
+				aria-hidden="true"
+				className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 z-0"
+				style={{ background: 'linear-gradient(to bottom, transparent 0%, #ffffff 100%)' }}
+			/>
 			<div className="max-w-[1252px] mx-auto text-center mb-12 relative z-10">
 				<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
 					For Lenders

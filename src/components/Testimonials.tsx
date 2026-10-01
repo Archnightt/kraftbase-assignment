@@ -231,6 +231,18 @@ export default function Testimonials() {
 
 	return (
 		<section className="py-20 md:py-28 bg-white relative overflow-hidden select-none">
+			{/* Top fade — blends into the section above */}
+			<div
+				aria-hidden="true"
+				className="pointer-events-none absolute top-0 left-0 right-0 h-28 z-[1]"
+				style={{ background: 'linear-gradient(to bottom, #ffffff 0%, transparent 100%)' }}
+			/>
+			{/* Bottom fade — blends into the footer */}
+			<div
+				aria-hidden="true"
+				className="pointer-events-none absolute bottom-0 left-0 right-0 h-28 z-[1]"
+				style={{ background: 'linear-gradient(to bottom, transparent 0%, #ffffff 100%)' }}
+			/>
 			{/* ── Ambient section-wide gradient blobs ── */}
 			{/* Lavender bloom — upper-left */}
 			<div

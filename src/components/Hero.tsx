@@ -331,6 +331,15 @@ export default function Hero() {
 					</div>
 				</div>
 			</motion.div>
+
+			{/* =========================================================
+				BOTTOM SECTION BLEND — fades hero bg into white
+			========================================================= */}
+			<div
+				aria-hidden="true"
+				className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 z-20"
+				style={{ background: 'linear-gradient(to bottom, transparent 0%, #ffffff 100%)' }}
+			/>
 		</section>
 	);
 }

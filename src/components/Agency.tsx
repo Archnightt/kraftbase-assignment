@@ -25,7 +25,19 @@ export default function Agency() {
 	];
 
 	return (
-		<section id="agencies" className="py-24 px-4 bg-gradient-to-b from-white to-[#F0F8FF]/30">
+		<section id="agencies" className="py-24 px-4 relative overflow-hidden bg-gradient-to-b from-white via-[#F0F8FF]/20 to-white">
+			{/* Top fade */}
+			<div
+				aria-hidden="true"
+				className="pointer-events-none absolute top-0 left-0 right-0 h-32 z-0"
+				style={{ background: 'linear-gradient(to bottom, #ffffff 0%, transparent 100%)' }}
+			/>
+			{/* Bottom fade */}
+			<div
+				aria-hidden="true"
+				className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 z-0"
+				style={{ background: 'linear-gradient(to bottom, transparent 0%, #ffffff 100%)' }}
+			/>
 			<div className="max-w-6xl mx-auto">
 				{/* Header */}
 				<div className="text-center mb-16">
