@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FocusEvent, type MouseEvent } from 'react';
-import { motion, MotionConfig, useMotionValue } from 'motion/react';
+import { motion, MotionConfig, useMotionValue, AnimatePresence } from 'motion/react';
 
 const NAV_LINKS = [
 	{ id: 'home', label: 'Home', href: '#top' },
@@ -8,14 +8,14 @@ const NAV_LINKS = [
 ];
 
 /* ---------- Solid Glass Physics & Slingshot ---------- */
-const HOLD = { k: 200, c: 20 }; // Rigid and heavy while dragging inside a link
-const SNAP = { k: 220, c: 22 }; // Clean, rigid spring for the flight to the new link
+const HOLD = { k: 200, c: 20 };
+const SNAP = { k: 220, c: 22 };
 const SNAP_MS = 500;
 
-const MAX_STRETCH = 12; // Maximum pixels the rigid block can be magnetically pulled off-center
-const RANGE = 50; // Sensitivity of the magnetic pull
-const RELEASE = 28; // Distance into the next link before breaking away
-const SLING_GAIN = 1000; // Velocity injected into the X-axis upon release for the slingshot effect
+const MAX_STRETCH = 12;
+const RANGE = 50;
+const RELEASE = 28;
+const SLING_GAIN = 1000;
 const LOCK_MS = 100;
 
 type NavLinkProps = {
@@ -54,6 +54,7 @@ function NavLink({ label, href, isPillHere, isActive, setRef, onFocusLink, onSel
 export default function Navbar() {
 	const [active, setActive] = useState('');
 	const [hovered, setHovered] = useState<string | null>(null);
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const linkEls = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -63,7 +64,6 @@ export default function Navbar() {
 	const pillX = useMotionValue(0);
 	const pillW = useMotionValue(0);
 
-	// Track center position (x) and width (w) to keep shape completely rigid
 	const pos = useRef({ x: 0, w: 0 });
 	const vel = useRef({ x: 0, w: 0 });
 
@@ -85,12 +85,9 @@ export default function Navbar() {
 	const getTarget = (snapping: boolean) => {
 		const { x, w } = dimensionsOf(current.current);
 		if (snapping) return { x, w };
-
 		const mid = x + w / 2;
 		const delta = cursorX.current - mid;
 		const shift = rubber(delta);
-
-		// The entire pill shifts off-center rigidly. The width 'w' never changes.
 		return { x: x + shift, w };
 	};
 
@@ -110,10 +107,8 @@ export default function Navbar() {
 		const target = getTarget(snapping);
 		const p = pos.current;
 		const v = vel.current;
-
 		const spring = snapping ? SNAP : HOLD;
 
-		// Apply spring physics to position (x) and width (w)
 		v.x += (spring.k * (target.x - p.x) - spring.c * v.x) * dt;
 		v.w += (spring.k * (target.w - p.w) - spring.c * v.w) * dt;
 		p.x += v.x * dt;
@@ -149,6 +144,18 @@ export default function Navbar() {
 		};
 	}, []);
 
+	// Lock body scroll when mobile menu is open
+	useEffect(() => {
+		if (isMobileMenuOpen) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+		return () => {
+			document.body.style.overflow = 'unset';
+		};
+	}, [isMobileMenuOpen]);
+
 	const appear = (i: number) => {
 		current.current = i;
 		pos.current = dimensionsOf(i);
@@ -163,10 +170,7 @@ export default function Navbar() {
 		const from = dimensionsOf(current.current);
 		const to = dimensionsOf(i);
 		const dir = to.x > from.x ? 1 : -1;
-
-		// Inject a burst of velocity into the X axis to create the slingshot release
 		vel.current.x += dir * SLING_GAIN;
-
 		const now = performance.now();
 		snapUntil.current = now + SNAP_MS;
 		lockUntil.current = now + LOCK_MS;
@@ -226,105 +230,175 @@ export default function Navbar() {
 	const scrollToContact = () => {
 		const el = document.getElementById('contact') || document.querySelector('footer');
 		el?.scrollIntoView({ behavior: 'smooth' });
+		setIsMobileMenuOpen(false);
 	};
 
 	return (
 		<MotionConfig reducedMotion="user">
-			<div className="absolute left-1/2 top-5 z-50 -translate-x-1/2">
-				<div className="h-[60px] md:h-[75px] w-[calc(100vw-32px)] md:w-[774px] max-w-[774px] rounded-[32px] md:rounded-[36px] border border-[#d9e2e8] bg-[#eaf0f3] p-[3px] md:p-[5px] shadow-[0_8px_18px_rgba(45,94,132,0.09)]">
-					<div className="h-full rounded-[32px] bg-white p-px">
-						<nav
-							aria-label="Main navigation"
-							className="relative flex h-full items-center rounded-[28px] md:rounded-[32px] bg-white px-3 md:px-5 backdrop-blur-xl">
-							<a
-								href="#top"
-								aria-label="Collectedge home"
-								className="flex shrink-0 items-center gap-1.5 md:gap-2 text-[15px] md:text-[14px] font-medium text-[#14161a]">
-								<img src="/logo.svg" alt="" className="h-[20px] md:h-[22px] w-auto" />
-								<span>Collectedge</span>
-							</a>
+			{/* Mobile Blurred Backdrop */}
+			<AnimatePresence>
+				{isMobileMenuOpen && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 0.3 }}
+						className="fixed inset-0 z-40 bg-gray-900/15 backdrop-blur-md lg:hidden"
+						onClick={() => setIsMobileMenuOpen(false)}
+					/>
+				)}
+			</AnimatePresence>
 
-							<div
-								ref={containerRef}
-								onMouseMove={handleMove}
-								onMouseLeave={handleLeave}
-								onBlur={handleBlur}
-								className="absolute left-1/2 hidden -translate-x-1/2 items-center whitespace-nowrap lg:flex text-[14px] font-normal">
-								<motion.span
-									aria-hidden="true"
-									initial={false}
-									animate={{ opacity: hovered ? 1 : 0 }}
-									transition={{ duration: 0.18 }}
-									style={{ x: pillX, width: pillW, borderRadius: 9999 }}
-									className="pointer-events-none absolute inset-y-0 left-0 z-0 select-none">
-									<span
-										style={{ borderRadius: 9999 }}
-										className="
-											relative block h-full w-full overflow-hidden
-											border border-white/80
-											bg-[linear-gradient(180deg,rgba(255,255,255,0.85)_0%,rgba(226,232,240,0.35)_100%)]
-											shadow-[inset_0_1px_0_rgba(255,255,255,1),inset_0_-1px_1px_rgba(15,23,42,0.08),0_6px_16px_rgba(15,23,42,0.10),0_1px_2px_rgba(15,23,42,0.08)]
-											ring-1 ring-slate-900/[0.06]
-										">
-										<span
-											aria-hidden="true"
-											className="pointer-events-none absolute inset-x-[10%] top-[2px] h-[45%] rounded-full bg-gradient-to-b from-white/90 to-white/0"
-										/>
-										<span
-											aria-hidden="true"
-											className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_-6px_10px_-4px_rgba(255,255,255,0.9)]"
-										/>
-									</span>
-								</motion.span>
+			<div className="absolute left-1/2 top-5 z-50 -translate-x-1/2 w-[70vw] md:w-[774px] max-w-[774px] h-fit">
+				{/* Main Container*/}
+				<div className="w-full h-fit p-[4px] md:p-[6px] rounded-[32px] md:rounded-[36px] border border-[#d9e2e8] backdrop-blur-md transition-all duration-300">
+					<div
+						className={`bg-white/10 overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? 'rounded-[20px] shadow-lg' : 'rounded-[28px] md:rounded-[32px]'}`}>
+						{/* Inner White Capsule */}
+						<div
+							className={`bg-white/60 border-1 border-white/40 overflow-hidden transition-all duration-300
+									${isMobileMenuOpen ? 'rounded-[20px] shadow-lg' : 'rounded-[26px] md:rounded-[30px]'}`}>
+							{/* Top Bar (Always Visible) */}
+							<nav aria-label="Main navigation" className="relative flex h-[54px] md:h-[60px] items-center px-4 md:px-5">
+								{/* Brand */}
+								<a
+									href="#top"
+									aria-label="Collectedge home"
+									className="flex shrink-0 items-center gap-1.5 md:gap-2 text-[14px] md:text-[15px] font-medium text-[#14161a]">
+									<img src="/logo.svg" alt="" className="h-[20px] md:h-[22px] w-auto" />
+									<span>Collectedge</span>
+								</a>
 
-								{NAV_LINKS.map((link, i) => (
-									<NavLink
-										key={link.id}
-										label={link.label}
-										href={link.href}
-										isPillHere={hovered === link.id}
-										isActive={active === link.id}
-										setRef={(el) => {
-											linkEls.current[i] = el;
-										}}
-										onFocusLink={() => handleFocusLink(i)}
-										onSelect={() => setActive(link.id)}
-									/>
-								))}
-							</div>
-
-							{/* CTA */}
-							<div className="ml-auto shrink-0">
+								{/* Desktop Physics Links */}
 								<div
-									className="group inline-flex cursor-pointer transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] w-[110px] h-[38px] md:w-[132px] md:h-[42px]"
-									style={{
-										boxSizing: 'border-box',
-										padding: '3px', // Outermost boundary remains exactly 142x48
-										borderRadius: '20px',
-										background: 'linear-gradient(135deg, #6095DB 0%, #1650EB 100%)',
-									}}
-									onClick={scrollToContact}>
-									<button
-										className="pointer-events-none relative flex h-full w-full items-center justify-center overflow-hidden border-none p-0 font-semibold tracking-wide text-white transition-all duration-300 text-[14px]"
-										style={{
-											boxSizing: 'border-box', // 👈 Forces the button to fit within the wrapper padding
-											borderRadius: '18px',
-											background: 'linear-gradient(135deg, #1952F1 0%, #418DF8 100%)',
-											boxShadow: '0 2px 10px rgba(25,82,241,0.28)',
-										}}>
-										{/* Shimmer highlight — fades in on hover */}
+									ref={containerRef}
+									onMouseMove={handleMove}
+									onMouseLeave={handleLeave}
+									onBlur={handleBlur}
+									className="absolute left-1/2 hidden -translate-x-1/2 items-center whitespace-nowrap lg:flex text-[14px] font-normal">
+									<motion.span
+										aria-hidden="true"
+										initial={false}
+										animate={{ opacity: hovered ? 1 : 0 }}
+										transition={{ duration: 0.18 }}
+										style={{ x: pillX, width: pillW, borderRadius: 9999 }}
+										className="pointer-events-none absolute inset-y-0 left-0 z-0 select-none">
 										<span
-											className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-											style={{
-												background: 'linear-gradient(140deg, rgba(255,255,255,0.16) 0%, transparent 55%)',
-												borderRadius: 'inherit',
+											style={{ borderRadius: 9999 }}
+											className="
+														relative block h-full w-full overflow-hidden
+														border border-white/80
+														bg-[linear-gradient(180deg,rgba(255,255,255,0.85)_0%,rgba(226,232,240,0.35)_100%)]
+														shadow-[inset_0_1px_0_rgba(255,255,255,1),inset_0_-1px_1px_rgba(15,23,42,0.08),0_6px_16px_rgba(15,23,42,0.10),0_1px_2px_rgba(15,23,42,0.08)]
+														ring-1 ring-slate-900/[0.06]
+													">
+											<span
+												aria-hidden="true"
+												className="pointer-events-none absolute inset-x-[10%] top-[2px] h-[45%] rounded-full bg-gradient-to-b from-white/90 to-white/0"
+											/>
+											<span
+												aria-hidden="true"
+												className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_-6px_10px_-4px_rgba(255,255,255,0.9)]"
+											/>
+										</span>
+									</motion.span>
+
+									{NAV_LINKS.map((link, i) => (
+										<NavLink
+											key={link.id}
+											label={link.label}
+											href={link.href}
+											isPillHere={hovered === link.id}
+											isActive={active === link.id}
+											setRef={(el) => {
+												linkEls.current[i] = el;
 											}}
+											onFocusLink={() => handleFocusLink(i)}
+											onSelect={() => setActive(link.id)}
 										/>
-										<span className="relative text-[13px] md:text-[14px]">Get in touch</span>
+									))}
+								</div>
+
+								{/* Desktop Contact Button */}
+								<div className="ml-auto shrink-0 hidden lg:block">
+									<div
+										className="group inline-flex cursor-pointer transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] w-[110px] h-[38px] md:w-[132px] md:h-[42px]"
+										style={{
+											boxSizing: 'border-box',
+											padding: '3px',
+											borderRadius: '20px',
+											background: 'linear-gradient(135deg, #6095DB 0%, #1650EB 100%)',
+										}}
+										onClick={scrollToContact}>
+										<button
+											className="pointer-events-none relative flex h-full w-full items-center justify-center overflow-hidden border-none p-0 font-semibold tracking-wide text-white transition-all duration-300 text-[14px]"
+											style={{
+												boxSizing: 'border-box', // Forces the button to fit within the wrapper padding
+												borderRadius: '18px',
+												background: 'linear-gradient(135deg, #1952F1 0%, #418DF8 100%)',
+												boxShadow: '0 2px 10px rgba(25,82,241,0.28)',
+											}}>
+											<span
+												className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+												style={{
+													background: 'linear-gradient(140deg, rgba(255,255,255,0.16) 0%, transparent 55%)',
+													borderRadius: 'inherit',
+												}}
+											/>
+											<span className="relative text-[13px] md:text-[14px]">Get in touch</span>
+										</button>
+									</div>
+								</div>
+
+								{/* Mobile Hamburger Toggle */}
+								<div className="ml-auto flex shrink-0 items-center lg:hidden h-full">
+									<div className="w-[1px] h-6 bg-[#f1f4f9] mr-2" />
+									<button
+										onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+										className="p-2 text-[#111318] transition-transform active:scale-95 outline-none"
+										aria-label="Toggle mobile menu">
+										{isMobileMenuOpen ? (
+											<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+												<path d="M2 2L18 18M18 2L2 18" />
+											</svg>
+										) : (
+											<svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" strokeWidth="1.5">
+												<path d="M1 1H21M1 11H21" />
+											</svg>
+										)}
 									</button>
 								</div>
-							</div>
-						</nav>
+							</nav>
+
+							{/* Mobile Dropdown Links Area */}
+							<AnimatePresence>
+								{isMobileMenuOpen && (
+									<motion.div
+										initial={{ height: 0, opacity: 0 }}
+										animate={{ height: 'auto', opacity: 1 }}
+										exit={{ height: 0, opacity: 0 }}
+										transition={{ duration: 0.3, ease: 'easeInOut' }}
+										className="lg:hidden">
+										<ul className="flex flex-col px-5 pb-4">
+											{[...NAV_LINKS, { id: 'contact', label: 'Contact Us', href: '#contact' }].map((link) => (
+												<li key={link.id} className="border-b border-gray-800/10 last:border-none">
+													<a
+														href={link.href}
+														onClick={() => {
+															setActive(link.id);
+															if (link.id === 'contact') scrollToContact();
+															else setIsMobileMenuOpen(false);
+														}}
+														className={`block py-4 text-[16px] transition-colors ${active === link.id ? 'font-medium text-[#3c87f8]' : 'font-medium text-[#4b5563]'}`}>
+														{link.label}
+													</a>
+												</li>
+											))}
+										</ul>
+									</motion.div>
+								)}
+							</AnimatePresence>
+						</div>
 					</div>
 				</div>
 			</div>
