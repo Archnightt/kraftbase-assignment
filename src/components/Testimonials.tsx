@@ -230,7 +230,7 @@ export default function Testimonials() {
 	};
 
 	return (
-		<section className="py-20 md:py-28 bg-white relative overflow-hidden select-none">
+		<section className="py-12 md:py-16 bg-white relative overflow-hidden select-none">
 			{/* Top fade — blends into the section above */}
 			<div
 				aria-hidden="true"
@@ -293,7 +293,7 @@ export default function Testimonials() {
 				}}
 			/>
 			{/* Header */}
-			<div className="relative z-10 max-w-4xl mx-auto text-center mb-10 md:mb-14 px-4">
+			<div className="relative z-10 max-w-4xl mx-auto text-center mb-6 md:mb-10 px-4">
 				<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
 					Testimonial
 				</p>
@@ -425,7 +425,7 @@ export default function Testimonials() {
 			</div>
 
 			{/* Bottom CTA Button */}
-			<div className="flex justify-center mt-8 md:mt-10 relative z-10">
+			<div className="flex justify-center mt-4 md:mt-6 relative z-10">
 				<CTAButton label="View All" />
 			</div>
 		</section>

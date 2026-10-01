@@ -25,7 +25,7 @@ export default function Agency() {
 	];
 
 	return (
-		<section id="agencies" className="py-24 px-4 relative overflow-hidden bg-gradient-to-b from-white via-[#F0F8FF]/20 to-white">
+		<section id="agencies" className="py-14 px-4 relative overflow-hidden bg-gradient-to-b from-white via-[#F0F8FF]/20 to-white">
 			{/* Top fade */}
 			<div
 				aria-hidden="true"
@@ -40,11 +40,11 @@ export default function Agency() {
 			/>
 			<div className="max-w-6xl mx-auto">
 				{/* Header */}
-				<div className="text-center mb-16">
+				<div className="text-center mb-10">
 					<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
 						For Agencies
 					</p>
-					<h2 className="text-[32px] md:text-[44px] font-semibold text-[#07133a] tracking-[-0.03em] max-w-5xl mx-auto leading-[1.2] mb-12">
+					<h2 className="text-[32px] md:text-[44px] font-semibold text-[#07133a] tracking-[-0.03em] max-w-5xl mx-auto leading-[1.2] mb-8">
 						We fuel demand and empower agencies to execute with unmatched <span className={gradientText}> efficiency and reliability.</span>
 					</h2>
 
@@ -70,7 +70,7 @@ export default function Agency() {
 				</div>
 
 				{/* Content panel */}
-				<div className="grid md:grid-cols-2 gap-10 items-center mt-12 bg-transparent max-w-5xl mx-auto">
+				<div className="grid md:grid-cols-2 gap-10 items-center mt-8 bg-transparent max-w-5xl mx-auto">
 					{/* Left – gauge */}
 					<div className="relative h-[430px] overflow-hidden rounded-[32px] border border-[#DDE2EA] bg-gradient-to-br from-[#F8FAFF] via-[#F3FAFF] to-[#E7E8FF] p-[52px] shadow-[0_12px_40px_rgba(25,82,241,0.06)]">
 						{/* Ambient gradient */}

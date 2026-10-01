@@ -75,7 +75,7 @@ const features: Feature[] = [
 
 export default function Features() {
 	return (
-		<section id="lenders" className="pt-24 pb-6 px-4 md:px-8 relative overflow-x-clip" style={sectionBg}>
+		<section id="lenders" className="pt-14 pb-6 px-4 md:px-8 relative overflow-x-clip" style={sectionBg}>
 			{/* Top fade — blends into the Hero's white bottom edge */}
 			<div
 				aria-hidden="true"

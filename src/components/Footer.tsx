@@ -64,7 +64,7 @@ const socials = [
 export default function Footer() {
 	return (
 		<footer id="contact" className="relative overflow-hidden bg-white px-4 pt-8 text-[#111318] sm:px-6 md:pt-14 lg:px-8">
-			<div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-t-[44px] bg-white px-5 pt-4 sm:rounded-t-[68px] sm:px-10 md:pt-24 lg:px-16 lg:pt-32">
+			<div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-t-[44px] bg-white px-5 pt-4 sm:rounded-t-[68px] sm:px-10 md:pt-14 lg:px-16 lg:pt-20">
 				<div className="relative mx-auto mb-16 flex min-h-[400px] flex-col items-center justify-start pt-2">
 					<HeroBackdrop />
 
@@ -94,7 +94,7 @@ export default function Footer() {
 					</div>
 				</div>
 
-				<div className="relative z-10 mx-auto mt-16 grid w-full grid-cols-1 items-start gap-10 text-center lg:mt-24 lg:grid-cols-[1fr_minmax(0,560px)_1fr] lg:text-left">
+				<div className="relative z-10 mx-auto mt-10 grid w-full grid-cols-1 items-start gap-10 text-center lg:mt-16 lg:grid-cols-[1fr_minmax(0,560px)_1fr] lg:text-left">
 					<section className="px-2 py-4 lg:py-7">
 						<h3 className="text-[16px] font-semibold tracking-[-0.035em] sm:text-[18px]">Navigation</h3>
 						<nav aria-label="Footer navigation" className="mt-5">
