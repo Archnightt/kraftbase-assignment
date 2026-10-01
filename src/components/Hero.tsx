@@ -1,8 +1,39 @@
 import { motion } from 'motion/react';
 import { ArrowDownRight } from '@phosphor-icons/react';
 import CTAButton from './CTAButton';
+import blankCardImg from '../assets/blank-card.png';
 
 const avatars = [1, 2, 3];
+
+// Bluer wash like the Figma: pale blue top-left, periwinkle glow on both side edges and along the
+// bottom, lighter area behind the headline. Raise/lower the rgba alpha (last number) to tune strength.
+const heroBg = {
+	background: [
+		'radial-gradient(ellipse 46% 40% at 50% 36%, rgba(255,255,255,0.85) 0%, transparent 75%)',
+		'radial-gradient(ellipse 36% 55% at 0% 48%, rgba(170,194,250,0.62) 0%, transparent 72%)',
+		'radial-gradient(ellipse 36% 58% at 100% 42%, rgba(166,188,248,0.62) 0%, transparent 72%)',
+		'radial-gradient(ellipse 55% 36% at 0% 0%, rgba(196,216,255,0.8) 0%, transparent 72%)',
+		'radial-gradient(ellipse 80% 30% at 50% 100%, rgba(184,202,250,0.7) 0%, transparent 74%)',
+		'linear-gradient(180deg, #eef3ff 0%, #f5f8ff 38%, #fafcff 62%, #edf0fd 100%)',
+	].join(', '),
+};
+
+// Blank frosted cards behind the real cards, placed from the Figma outline.
+//   cx / cy = centre of the card (% of section width / height)
+//   w       = width in px (height follows the PNG's own ratio)
+//   rot     = rotation in degrees
+// I can't see blank-card.png, so tune w first, then cx / cy. Delete a row to remove a card.
+const BLANK_CARDS = [
+	{ cx: 9.1, cy: 34.5, w: 357, rot: 0 }, // left, flat, behind Operational Health
+	{ cx: 8.6, cy: 59.7, w: 289, rot: -12 }, // left, tilted, behind AFL
+	{ cx: 90.4, cy: 38.8, w: 357, rot: -8 }, // right, tilted opposite to Interactions
+];
+
+// Fades the marquee edges to transparent, so it works on any background colour
+const logoMask = {
+	maskImage: 'linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%)',
+	WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%)',
+};
 
 export default function Hero() {
 	const LOGOS = [
@@ -15,18 +46,18 @@ export default function Hero() {
 
 	function LogoGroup() {
 		return (
-			<div className="flex shrink-0 items-center gap-5 px-2">
+			<div className="flex shrink-0 items-center gap-6 pr-6">
 				{LOGOS.map((logo, index) => (
 					<div
 						key={`${logo.alt}-${index}`}
 						className="
-            flex h-[58px] w-[165px] shrink-0
+            flex h-[48px] shrink-0
             items-center justify-center
-            rounded-[14px]
+            rounded-[12px]
             border border-slate-200/80
-            bg-white/20
+            bg-white/20 px-[18px]
           ">
-						<img src={logo.src} alt={logo.alt} className="h-6 w-auto" />
+						<img src={logo.src} alt={logo.alt} className="h-5 w-auto" />
 					</div>
 				))}
 			</div>
@@ -40,41 +71,46 @@ export default function Hero() {
 			{/* =========================================================
 				BACKGROUND
 			========================================================= */}
-			<div
-				aria-hidden="true"
-				className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(ellipse_46%_44%_at_0%_35%,rgba(112,151,255,0.23),transparent_74%),radial-gradient(ellipse_46%_46%_at_100%_34%,rgba(106,145,255,0.22),transparent_74%),radial-gradient(ellipse_58%_34%_at_50%_100%,rgba(148,179,255,0.19),transparent_72%),linear-gradient(180deg,#edf5ff_0%,#f8fbff_29%,#ffffff_70%,#f4f8ff_100%)]"
-			/>
+			<div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20" style={heroBg} />
 
 			{/* =========================================================
-				LARGE BACKGROUND FILLER SHAPES
+				BLANK FILLER CARDS (blank-card.png), see BLANK_CARDS above
 			========================================================= */}
-			<div
-				aria-hidden="true"
-				className="pointer-events-none absolute -left-[11%] top-[12%] -z-10 hidden h-[650px] w-[440px] -rotate-[15deg] rounded-[48px] border border-white/70 bg-white/40 shadow-[0_8px_40px_rgba(54,88,148,0.05)] backdrop-blur-md lg:block"
-			/>
-			<div
-				aria-hidden="true"
-				className="pointer-events-none absolute -right-[11%] top-[15%] -z-10 hidden h-[570px] w-[470px] rotate-[15deg] rounded-[48px] border border-white/70 bg-white/40 shadow-[0_8px_40px_rgba(54,88,148,0.05)] backdrop-blur-md lg:block"
-			/>
+			{BLANK_CARDS.map((card, i) => (
+				<img
+					key={i}
+					src={blankCardImg}
+					alt=""
+					aria-hidden="true"
+					draggable={false}
+					className="pointer-events-none absolute -z-10 hidden max-w-none select-none lg:block"
+					style={{
+						left: `${card.cx}%`,
+						top: `${card.cy}%`,
+						width: card.w,
+						transform: `translate(-50%, -50%) rotate(${card.rot}deg)`,
+					}}
+				/>
+			))}
 
 			{/* =========================================================
 				LEFT — OPERATIONAL HEALTH
-				Figma: larger, farther left, noticeably higher.
+				Scaled up ~26% to match Figma (510px -> 643px).
 			========================================================= */}
 			<motion.div
 				initial={{ opacity: 0, x: -50, y: 20 }}
 				animate={{ opacity: 1, x: 0, y: 0 }}
 				transition={{ duration: 0.8, delay: 0.3 }}
-				className="pointer-events-none absolute left-[-9.8%] top-[2%] z-10 hidden -rotate-[12deg] lg:block">
-				<img src="/Health.png" alt="Operational Health" className="w-[510px] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]" />
+				className="pointer-events-none absolute left-[-13.2%] top-[-0.7%] z-10 hidden rotate-[10deg] lg:block">
+				<img src="/Health.png" alt="Operational Health" className="w-[643px] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]" />
 			</motion.div>
 
-			{/* LEFT — AFL SERVICES */}
+			{/* LEFT — AFL SERVICES (same size as before, moved down/right, less tilt) */}
 			<motion.div
 				initial={{ opacity: 0, x: -50, y: 20 }}
 				animate={{ opacity: 1, x: 0, y: 0 }}
 				transition={{ duration: 0.8, delay: 0.4 }}
-				className="pointer-events-none absolute left-[-6.2%] top-[35%] z-10 hidden -rotate-[12deg] lg:block">
+				className="pointer-events-none absolute left-[-4.8%] top-[39.7%] z-10 hidden -rotate-[8deg] lg:block">
 				<img src="/AFL.png" alt="AFL Services" className="w-[460px] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]" />
 			</motion.div>
 
@@ -83,8 +119,8 @@ export default function Hero() {
 				initial={{ opacity: 0, scale: 0 }}
 				animate={{ opacity: 1, scale: 1 }}
 				transition={{ duration: 0.5, delay: 0.6 }}
-				className="pointer-events-none absolute left-[16.6%] top-[16.5%] z-20 hidden h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-				<img src="/meter.svg" alt="Meter" className="h-8 w-8" />
+				className="pointer-events-none absolute left-[17.2%] top-[22.2%] z-20 hidden h-[60px] w-[60px] items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
+				<img src="/meter.svg" alt="Meter" className="h-10 w-10" />
 			</motion.div>
 
 			{/* LEFT — LIGHTNING ICON */}
@@ -92,20 +128,20 @@ export default function Hero() {
 				initial={{ opacity: 0, scale: 0 }}
 				animate={{ opacity: 1, scale: 1 }}
 				transition={{ duration: 0.5, delay: 0.7 }}
-				className="pointer-events-none absolute left-[2%] top-[66%] z-20 hidden h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
+				className="pointer-events-none absolute left-[4.1%] top-[69.7%] z-20 hidden h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
 				<img src="/lightning.svg" alt="Lightning" className="h-8 w-8" />
 			</motion.div>
 
 			{/* =========================================================
 				RIGHT — INTERACTIONS
-				Figma: slightly larger and pushed a little farther in.
+				Scaled up ~38% (475px -> 655px), rotation 8deg like Figma.
 			========================================================= */}
 			<motion.div
 				initial={{ opacity: 0, x: 50, y: 20 }}
 				animate={{ opacity: 1, x: 0, y: 0 }}
 				transition={{ duration: 0.8, delay: 0.3 }}
-				className="pointer-events-none absolute right-[-6.5%] top-[9%] z-10 hidden rotate-[12deg] lg:block">
-				<img src="/Interactions.png" alt="Interactions" className="w-[475px] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]" />
+				className="pointer-events-none absolute right-[-16.1%] top-[3%] z-10 hidden rotate-[8deg] lg:block">
+				<img src="/Interactions.png" alt="Interactions" className="w-[655px] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]" />
 			</motion.div>
 
 			{/* RIGHT — DOLLAR ICON */}
@@ -113,40 +149,40 @@ export default function Hero() {
 				initial={{ opacity: 0, scale: 0 }}
 				animate={{ opacity: 1, scale: 1 }}
 				transition={{ duration: 0.5, delay: 0.6 }}
-				className="pointer-events-none absolute right-[4.8%] top-[10%] z-20 hidden h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-				<img src="/Dollar.svg" alt="Dollar" className="h-8 w-8" />
+				className="pointer-events-none absolute right-[4.4%] top-[12.3%] z-20 hidden h-[62px] w-[62px] items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
+				<img src="/Dollar.svg" alt="Dollar" className="h-10 w-10" />
 			</motion.div>
 
 			{/* =========================================================
 				RIGHT — STAFF PROFILE CARDS
-				Cheyenne sits directly beneath the dialer icon, with Roger
-				offset underneath to recreate the layered Figma composition.
+				Each one is positioned on its own now (the old wrapper was sized for the small cards).
+				Roger is first in the DOM so Cheyenne overlaps him, as in Figma.
+				Cheyenne ~58% larger (355 -> 561px), Roger ~72% larger (230 -> 396px). Both are cropped by the right edge.
 			========================================================= */}
-			<div className="pointer-events-none absolute right-[-1.5%] top-[42%] z-20 hidden h-[300px] w-[380px] lg:block">
-				<motion.div
-					initial={{ opacity: 0, scale: 0 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.5, delay: 0.65 }}
-					className="absolute left-[104px] top-0 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)]">
-					<img src="/Dialer.svg" alt="Dialer" className="h-8 w-8" />
-				</motion.div>
+			<motion.div
+				initial={{ opacity: 0, x: 35, y: 20 }}
+				animate={{ opacity: 1, x: 0, y: 0 }}
+				transition={{ duration: 0.75, delay: 0.55 }}
+				className="pointer-events-none absolute right-[-6.7%] top-[57.9%] z-20 hidden rotate-[2deg] lg:block">
+				<img src="/Roger.png" alt="Roger Kenter" className="w-[396px] max-w-none drop-shadow-[0_14px_24px_rgba(41,67,110,0.12)]" />
+			</motion.div>
 
-				<motion.div
-					initial={{ opacity: 0, x: 30, y: 20 }}
-					animate={{ opacity: 1, x: 0, y: 0 }}
-					transition={{ duration: 0.75, delay: 0.45 }}
-					className="absolute left-0 top-[34px] rotate-[3deg]">
-					<img src="/Cheyenne.png" alt="Cheyenne Gouse" className="w-[355px] max-w-none drop-shadow-[0_16px_28px_rgba(41,67,110,0.13)]" />
-				</motion.div>
+			<motion.div
+				initial={{ opacity: 0, x: 30, y: 20 }}
+				animate={{ opacity: 1, x: 0, y: 0 }}
+				transition={{ duration: 0.75, delay: 0.45 }}
+				className="pointer-events-none absolute right-[-9.7%] top-[46.6%] z-20 hidden rotate-[1deg] lg:block">
+				<img src="/Cheyenne.png" alt="Cheyenne Gouse" className="w-[561px] max-w-none drop-shadow-[0_16px_28px_rgba(41,67,110,0.13)]" />
+			</motion.div>
 
-				<motion.div
-					initial={{ opacity: 0, x: 35, y: 20 }}
-					animate={{ opacity: 1, x: 0, y: 0 }}
-					transition={{ duration: 0.75, delay: 0.55 }}
-					className="absolute left-[126px] top-[144px] rotate-[2deg]">
-					<img src="/Roger.png" alt="Roger Kenter" className="w-[230px] max-w-none drop-shadow-[0_14px_24px_rgba(41,67,110,0.12)]" />
-				</motion.div>
-			</div>
+			{/* RIGHT — DIALER ICON (sits on Cheyenne's top-left corner) */}
+			<motion.div
+				initial={{ opacity: 0, scale: 0 }}
+				animate={{ opacity: 1, scale: 1 }}
+				transition={{ duration: 0.5, delay: 0.65 }}
+				className="pointer-events-none absolute right-[10.1%] top-[53.5%] z-20 hidden h-14 w-14 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
+				<img src="/Dialer.svg" alt="Dialer" className="h-9 w-9" />
+			</motion.div>
 
 			{/* =========================================================
 				MAIN HERO CONTENT
@@ -178,21 +214,11 @@ export default function Hero() {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5, delay: 0.1 }}
-					className="mb-7 text-[52px] font-bold leading-[1.03] tracking-[-0.045em] text-[#080A1B] sm:text-[62px] md:text-[70px] lg:text-[80px] xl:text-[82px]">
+					className="mb-7 text-[52px] font-medium leading-[1.03] tracking-[-0.045em] text-[#080A1B] sm:text-[62px] md:text-[70px] lg:text-[80px] xl:text-[82px]">
 					Unified Platform for Late-
 					<br />
 					Stage <span className="mx-1 font-light text-blue-500 lg:mx-2">|</span>
-					<span className="relative inline-block text-[#29468F]">
-						DPD Resolution.
-						<svg
-							className="absolute -bottom-2 left-0 h-3 w-full opacity-80"
-							viewBox="0 0 200 12"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-							preserveAspectRatio="none">
-							<path d="M2 9.5C50 3.5 150 2 198 8" stroke="#29468F" strokeWidth="2.5" strokeLinecap="round" />
-						</svg>
-					</span>
+					<span className="relative inline-block text-[#29468F]">DPD Resolution.</span>
 				</motion.h1>
 
 				<motion.p
@@ -208,7 +234,14 @@ export default function Hero() {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5, delay: 0.3 }}
 					className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-					<CTAButton label="Get free Trial" />
+					<div className="relative">
+						{/* Soft blue glow under the CTA (Figma). Tweak h / w / alpha to taste. */}
+						<div
+							aria-hidden="true"
+							className="pointer-events-none absolute left-1/2 top-[70%] -z-10 h-[120px] w-[300px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_50%_30%,rgba(76,118,255,0.42),transparent_68%)] blur-[18px]"
+						/>
+						<CTAButton label="Get free Trial" />
+					</div>
 
 					<div className="group inline-flex transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]">
 						<div
@@ -240,7 +273,6 @@ export default function Hero() {
 
 			{/* =========================================================
 				COMPANIES / LOGO MARQUEE
-				Moved substantially upward and visually reduced to match Figma.
 			========================================================= */}
 
 			<motion.div
@@ -290,39 +322,15 @@ export default function Hero() {
 					}
 				`}</style>
 
-				{/* Logo viewport */}
-				<div className="relative mx-auto max-w-[1450px] overflow-hidden">
-					{/* Scrolling logos */}
+				{/* Logo viewport (edges fade out via mask) */}
+				<div className="relative mx-auto max-w-[1450px] overflow-hidden" style={logoMask}>
+					{/* 4 copies: the loop shifts by half, and the smaller logos no longer fill 2 copies */}
 					<div className="animate-marquee flex w-max">
 						<LogoGroup />
 						<LogoGroup />
+						<LogoGroup />
+						<LogoGroup />
 					</div>
-
-					{/* Left white fade */}
-					<div
-						className="
-							pointer-events-none
-							absolute inset-y-0 left-0 z-10
-							w-[400px]
-							bg-gradient-to-r
-							from-[#f8fbff]
-							via-[#f8fbff]/80
-							to-transparent
-						"
-					/>
-
-					{/* Right white fade */}
-					<div
-						className="
-							pointer-events-none
-							absolute inset-y-0 right-0 z-10
-							w-[400px]
-							bg-gradient-to-l
-							from-[#f8fbff]
-							via-[#f8fbff]/80
-							to-transparent
-						"
-					/>
 				</div>
 			</motion.div>
 		</section>

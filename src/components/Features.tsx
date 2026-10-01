@@ -1,86 +1,116 @@
 import { Users, ToggleLeft, ChartLineUp, MagnifyingGlass } from '@phosphor-icons/react';
+import type { Icon } from '@phosphor-icons/react';
 import staffImg from '../assets/staff.png';
 import apiIntegrationImg from '../assets/API_Integration.png';
 import drivenByDataImg from '../assets/DrivenByData.png';
 import aflImg from '../assets/AFL.png';
 
-export default function Features() {
-	const featureImageClass = 'w-full h-full object-contain';
+const INK = '#0a0d2c';
+const gradientText = 'bg-gradient-to-r from-[#0a0d2c] to-[#1e3a9e] bg-clip-text text-transparent';
 
+// Soft lavender glow on the edges of the section, white in the middle (as in Figma)
+const sectionBg = {
+	background: [
+		'radial-gradient(60% 45% at 0% 8%, #eaf1ff 0%, transparent 70%)',
+		'radial-gradient(45% 55% at 100% 35%, #e4e6fb 0%, transparent 70%)',
+		'radial-gradient(80% 35% at 50% 100%, #ebedfc 0%, transparent 70%)',
+		'#ffffff',
+	].join(', '),
+};
+
+type Feature = {
+	title: string;
+	description: string;
+	Icon: Icon;
+	weight: 'fill' | 'bold';
+	img: string;
+	alt: string;
+	fit: { w: number; x: number; mt: number; mb: number };
+	cell: string;
+};
+
+const features: Feature[] = [
+	{
+		title: 'Intuitive & Agent Focused',
+		description:
+			'Our tool is designed with agencies & collection managers in mind, ensuring user-friendly experience tailored to their needs',
+		Icon: Users,
+		weight: 'fill',
+		img: staffImg,
+		alt: 'Staff',
+		fit: { w: 107, x: -3.5, mt: 0, mb: -14 },
+		cell: 'border-b md:border-r',
+	},
+	{
+		title: 'Highly Customizable',
+		description:
+			'Our tool is designed with agencies & collection managers in mind, ensuring user-friendly experience tailored to their needs',
+		Icon: ToggleLeft,
+		weight: 'fill',
+		img: apiIntegrationImg,
+		alt: 'API Integration',
+		fit: { w: 101, x: -1.3, mt: -32, mb: 36 },
+		cell: 'border-b md:pl-[54px]',
+	},
+	{
+		title: 'Driven by Data',
+		description: 'Our data-driven approach equips collection managers with insights to make informed & actionable decisions',
+		Icon: ChartLineUp,
+		weight: 'fill',
+		img: drivenByDataImg,
+		alt: 'Driven by Data',
+		fit: { w: 130, x: -17.6, mt: -64, mb: -89 },
+		cell: 'border-b md:border-b-0 md:border-r',
+	},
+	{
+		title: 'Discover Agency partners',
+		description: 'Discover top-performing, tech-driven agencies designed to deliver results with minimal overhead.',
+		Icon: MagnifyingGlass,
+		weight: 'bold',
+		img: aflImg,
+		alt: 'Discover Agency Partners',
+		fit: { w: 109, x: -5.5, mt: -51, mb: -20 },
+		cell: 'md:pl-[54px]',
+	},
+];
+
+export default function Features() {
 	return (
-		<section id="lenders" className="py-24 px-4 md:px-8 bg-white relative">
-			<div className="max-w-[1360px] mx-auto text-center mb-12 relative z-10">
-				<p className="text-[14px] font-bold text-black mb-6">For Lenders</p>
-				<h2 className="text-[32px] md:text-[42px] font-semibold text-black tracking-[-0.03em] max-w-[820px] mx-auto leading-[1.2]">
-					We're changing the game with <span>one complete agency management tool</span>
+		<section id="lenders" className="pt-24 pb-6 px-4 md:px-8 relative overflow-x-clip" style={sectionBg}>
+			<div className="max-w-[1252px] mx-auto text-center mb-12 relative z-10">
+				<p className="text-[18px] font-semibold text-[#3b6cf0] mb-4">For Lenders</p>
+				<h2
+					className="text-[32px] md:text-[42px] font-semibold tracking-[-0.03em] max-w-[700px] mx-auto leading-[1.2] md:leading-[1.33]"
+					style={{ color: INK }}>
+					We're changing the game with <span className={gradientText}>one complete agency management tool</span>
 				</h2>
 			</div>
 
-			<div className="max-w-[1360px] mx-auto border-t border-b border-[#f0f2f5] relative z-10">
+			<div className="max-w-[1252px] mx-auto border-t border-[#e8eaf3] relative z-10">
 				<div className="grid md:grid-cols-2">
-					{/* Card 1 – Intuitive & Agent Focused */}
-					<div className="border-b md:border-r border-[#f0f2f5] flex flex-col overflow-hidden">
-						<div className="pt-10 px-10 md:pt-16 md:px-14 flex-1">
-							<h3 className="text-[20px] font-semibold text-black mb-4 flex items-center gap-3">
-								<Users weight="fill" className="text-black" />
-								Intuitive & Agent Focused
-							</h3>
-							<p className="text-black text-[16px] leading-[1.6] mb-8 max-w-[480px]">
-								Our tool is designed with agencies & collection managers in mind, ensuring user-friendly experience tailored to their needs
-							</p>
+					{features.map(({ title, description, Icon, weight, img, alt, fit, cell }) => (
+						<div key={title} className={`border-[#e8eaf3] flex flex-col ${cell}`}>
+							<div className="pt-10 md:pt-12 md:max-w-[549px] box-content flow-root">
+								<h3 className="relative z-10 text-[24px] md:text-[28px] font-semibold tracking-[-0.02em] mb-5 flex items-center gap-3">
+									<Icon size={28} weight={weight} color={INK} className="shrink-0" />
+									<span className={gradientText}>{title}</span>
+								</h3>
+								<p className="relative z-0 text-[#6b6f7b] text-[16px] md:text-[19px] leading-[1.4] mb-8">{description}</p>
+								<img
+									src={img}
+									alt={alt}
+									draggable={false}
+									className="block h-auto max-w-none pointer-events-none select-none"
+									style={{
+										width: `${fit.w}%`,
+										marginLeft: `${fit.x}%`,
+										marginTop: `${fit.mt}px`,
+										marginBottom: `${fit.mb}px`,
+									}}
+								/>
+							</div>
 						</div>
-						<div className="mt-auto flex w-full aspect-[723/520] justify-center">
-							<img src={staffImg} alt="Staff" className={featureImageClass} />
-						</div>
-					</div>
-
-					{/* Card 2 – Highly Customizable */}
-					<div className="border-b border-[#f0f2f5] flex flex-col overflow-hidden">
-						<div className="pt-10 px-10 md:pt-16 md:px-14 flex-1">
-							<h3 className="text-[20px] font-semibold text-black mb-4 flex items-center gap-3">
-								<ToggleLeft weight="fill" className="text-black" />
-								Highly Customizable
-							</h3>
-							<p className="text-black text-[16px] leading-[1.6] mb-8 max-w-[480px]">
-								Our tool is designed with agencies & collection managers in mind, ensuring user-friendly experience tailored to their needs
-							</p>
-						</div>
-						<div className="mt-auto flex w-full aspect-[723/520] justify-center">
-							<img src={apiIntegrationImg} alt="API Integration" className={featureImageClass} />
-						</div>
-					</div>
-
-					{/* Card 3 – Driven by Data */}
-					<div className="border-b md:border-r md:border-b-0 border-[#f0f2f5] flex flex-col overflow-hidden">
-						<div className="pt-10 px-10 md:pt-16 md:px-14 flex-1">
-							<h3 className="text-[20px] font-semibold text-black mb-4 flex items-center gap-3">
-								<ChartLineUp weight="fill" className="text-black" />
-								Driven by Data
-							</h3>
-							<p className="text-black text-[16px] leading-[1.6] mb-8 max-w-[480px]">
-								Our data-driven approach equips collection managers with insights to make informed & actionable decisions
-							</p>
-						</div>
-						<div className="mt-auto flex w-full aspect-[723/520] justify-center">
-							<img src={drivenByDataImg} alt="Driven by Data" className={featureImageClass} />
-						</div>
-					</div>
-
-					{/* Card 4 – Discover Agency partners */}
-					<div className="flex flex-col overflow-hidden">
-						<div className="pt-10 px-10 md:pt-16 md:px-14 flex-1">
-							<h3 className="text-[20px] font-semibold text-black mb-4 flex items-center gap-3">
-								<MagnifyingGlass weight="bold" className="text-black" />
-								Discover Agency partners
-							</h3>
-							<p className="text-black text-[16px] leading-[1.6] mb-8 max-w-[480px]">
-								Discover top-performing, tech-driven agencies designed to deliver results with minimal overhead.
-							</p>
-						</div>
-						<div className="mt-auto flex w-full aspect-[723/520] justify-center">
-							<img src={aflImg} alt="Discover Agency Partners" className={featureImageClass} />
-						</div>
-					</div>
+					))}
 				</div>
 			</div>
 		</section>
