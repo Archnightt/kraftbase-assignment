@@ -32,13 +32,15 @@ export default function Agency() {
 				className="pointer-events-none absolute top-0 left-0 right-0 h-32 z-0"
 				style={{ background: 'linear-gradient(to bottom, #ffffff 0%, transparent 100%)' }}
 			/>
-			{/* Bottom fade */}
+
+			{/* Bottom fade - FIXED: Added bottom-0 */}
 			<div
 				aria-hidden="true"
 				className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 z-0"
 				style={{ background: 'linear-gradient(to bottom, transparent 0%, #ffffff 100%)' }}
 			/>
-			<div className="max-w-6xl mx-auto">
+
+			<div className="max-w-6xl mx-auto relative z-10">
 				{/* Header */}
 				<div className="text-center mb-10">
 					<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
