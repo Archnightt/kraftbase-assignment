@@ -11,11 +11,11 @@ export default function Navbar() {
 			{/* Outer bezel */}
 			<div
 				className="
-          h-[75px] w-[774px]
-          rounded-[36px]
+          h-[60px] md:h-[75px] w-[calc(100vw-32px)] md:w-[774px] max-w-[774px]
+          rounded-[32px] md:rounded-[36px]
           border border-[#d9e2e8]
           bg-[#eaf0f3]
-          p-[5px]
+          p-[3px] md:p-[5px]
           shadow-[0_8px_18px_rgba(45,94,132,0.09)]
         ">
 				{/* Inner white frame */}
@@ -25,9 +25,9 @@ export default function Navbar() {
 						aria-label="Main navigation"
 						className="
               relative flex h-full items-center
-              rounded-[32px]
+              rounded-[28px] md:rounded-[32px]
               bg-white
-              px-5
+              px-3 md:px-5
               backdrop-blur-xl
             ">
 						{/* Logo */}
@@ -35,11 +35,11 @@ export default function Navbar() {
 							href="#top"
 							aria-label="Collectedge home"
 							className="
-                flex shrink-0 items-center gap-2
-                text-[14px] font-medium
+                flex shrink-0 items-center gap-1.5 md:gap-2
+                text-[15px] md:text-[14px] font-medium
                 text-[#14161a]
               ">
-							<img src="/logo.svg" alt="" className="h-[22px] w-auto" />
+							<img src="/logo.svg" alt="" className="h-[20px] md:h-[22px] w-auto" />
 
 							<span>Collectedge</span>
 						</a>
@@ -79,12 +79,10 @@ export default function Navbar() {
 						{/* CTA */}
 						<div className="ml-auto shrink-0">
 							<div
-								className="group inline-flex cursor-pointer transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]"
+								className="group inline-flex cursor-pointer transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] w-[110px] h-[38px] md:w-[132px] md:h-[42px]"
 								style={{
-									width: 132,
-									height: 42,
 									boxSizing: 'border-box',
-									padding: '4px', // Outermost boundary remains exactly 142x48
+									padding: '3px', // Outermost boundary remains exactly 142x48
 									borderRadius: '20px',
 									background: 'linear-gradient(135deg, #6095DB 0%, #1650EB 100%)',
 								}}
@@ -105,7 +103,7 @@ export default function Navbar() {
 											borderRadius: 'inherit',
 										}}
 									/>
-									<span className="relative">Get in touch</span>
+									<span className="relative text-[13px] md:text-[14px]">Get in touch</span>
 								</button>
 							</div>
 						</div>

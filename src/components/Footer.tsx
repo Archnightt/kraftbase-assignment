@@ -94,8 +94,8 @@ export default function Footer() {
 					</div>
 				</div>
 
-				<div className="relative z-10 mx-auto mt-10 grid w-full grid-cols-1 items-start gap-10 text-center lg:mt-16 lg:grid-cols-[1fr_minmax(0,560px)_1fr] lg:text-left">
-					<section className="px-2 py-4 lg:py-7">
+				<div className="relative z-10 mx-auto mt-10 grid w-full grid-cols-1 items-start gap-8 md:gap-10 text-center lg:mt-16 lg:grid-cols-[1fr_minmax(0,560px)_1fr] lg:text-left">
+					<section className="px-2 py-4 lg:py-7 order-2 lg:order-1">
 						<h3 className="text-[16px] font-semibold tracking-[-0.035em] sm:text-[18px]">Navigation</h3>
 						<nav aria-label="Footer navigation" className="mt-5">
 							<ul className="space-y-3 text-[14px] leading-none text-[#777b84] sm:text-[15px]">
@@ -118,7 +118,7 @@ export default function Footer() {
 						</nav>
 					</section>
 
-					<section className="flex flex-col items-center px-4 py-4 text-center lg:py-7">
+					<section className="flex flex-col items-center px-4 py-4 text-center lg:py-7 order-1 lg:order-2">
 						<a href="#top" className="inline-flex items-center gap-2 text-[20px] font-semibold tracking-[-0.045em] sm:text-[24px]">
 							<img src="/logo.svg" alt="" className="size-[28px] object-contain" />
 							Collectedge
@@ -129,7 +129,7 @@ export default function Footer() {
 						</p>
 					</section>
 
-					<section className="px-2 py-4 lg:ml-auto lg:py-7 lg:text-left">
+					<section className="px-2 py-4 lg:ml-auto lg:py-7 lg:text-left order-3">
 						<h3 className="text-[16px] font-semibold tracking-[-0.035em] sm:text-[18px]">Contact</h3>
 						<ul className="mt-5 space-y-4 text-[14px] leading-[1.35] text-[#777b84] sm:text-[15px]">
 							<li className="flex items-center justify-center gap-2.5 lg:justify-start">

@@ -212,7 +212,7 @@ export default function Hero() {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5, delay: 0.1 }}
-					className="mb-7 text-[50px] font-semibold leading-[1.03] tracking-[-0.045em] text-[#080A1B] sm:text-[62px] md:text-[70px] lg:text-[80px] xl:text-[82px]">
+					className="mb-7 text-[38px] font-semibold leading-[1.03] tracking-[-0.045em] text-[#080A1B] sm:text-[50px] md:text-[70px] lg:text-[80px] xl:text-[82px]">
 					Unified Platform for Late-
 					<br />
 					Stage <span className="mx-1 font-light text-blue-500 lg:mx-2">|</span>
@@ -283,14 +283,14 @@ export default function Hero() {
 					lg:absolute lg:bottom-[11vh] lg:left-0 lg:mt-0
 				">
 				{/* Heading */}
-				<div className="mb-7 flex items-center justify-center gap-4 text-[17px] text-[#7C8DA8]">
-					<div className="h-px w-16 border-t border-dashed border-[#CBD5E4] sm:w-24" />
+				<div className="mb-7 flex items-center justify-center gap-2 sm:gap-4 text-[14px] sm:text-[17px] text-[#7C8DA8]">
+					<div className="h-px w-8 sm:w-16 md:w-24 border-t border-dashed border-[#CBD5E4]" />
 
 					<p className="whitespace-nowrap font-medium">
 						Join <span className="font-bold text-[#263554]">4,000+</span> Companies Already Growing
 					</p>
 
-					<div className="h-px w-16 border-t border-dashed border-[#CBD5E4] sm:w-24" />
+					<div className="h-px w-8 sm:w-16 md:w-24 border-t border-dashed border-[#CBD5E4]" />
 				</div>
 
 				<style>{`
