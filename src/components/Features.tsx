@@ -5,7 +5,6 @@ import apiIntegrationImg from '../assets/API_Integration.png';
 import drivenByDataImg from '../assets/DrivenByData.png';
 import aflImg from '../assets/AFL.png';
 
-const INK = '#0a0d2c';
 const gradientText = 'bg-gradient-to-r from-[#0a0d2c] to-[#1e3a9e] bg-clip-text text-transparent';
 
 // Soft lavender glow on the edges of the section
@@ -81,9 +80,7 @@ export default function Features() {
 				<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
 					For Lenders
 				</p>
-				<h2
-					className="text-[32px] md:text-[42px] font-semibold tracking-[-0.03em] max-w-[700px] mx-auto leading-[1.2] md:leading-[1.33]"
-					style={{ color: INK }}>
+				<h2 className="text-[32px] text-black md:text-[42px] font-semibold tracking-[-0.03em] max-w-[700px] mx-auto leading-[1.2] md:leading-[1.33]">
 					We're changing the game with <span className={gradientText}>one complete agency management tool</span>
 				</h2>
 			</div>
@@ -94,7 +91,7 @@ export default function Features() {
 						<div key={title} className={`border-[#e8eaf3] flex flex-col ${cell}`}>
 							<div className="pt-10 md:pt-12 md:max-w-[549px] box-content flow-root">
 								<h3 className="relative z-10 text-[24px] md:text-[28px] font-semibold tracking-[-0.02em] mb-5 flex items-center gap-3">
-									<Icon size={28} weight={weight} color={INK} className="shrink-0" />
+									<Icon size={28} weight={weight} className="shrink-0" />
 									<span className={gradientText}>{title}</span>
 								</h3>
 								<p className="relative z-0 text-[#6b6f7b] text-[16px] md:text-[19px] leading-[1.4] mb-8">{description}</p>

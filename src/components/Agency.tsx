@@ -4,15 +4,7 @@ import icon1 from '../assets/icon1.svg';
 import icon2 from '../assets/icon2.svg';
 import icon3 from '../assets/icon3.svg';
 
-// Soft lavender glow on the edges of the section
-const sectionBg = {
-	background: [
-		'radial-gradient(60% 45% at 0% 8%, #eaf1ff 0%, transparent 70%)',
-		'radial-gradient(45% 55% at 100% 35%, #e4e6fb 0%, transparent 70%)',
-		'radial-gradient(80% 35% at 50% 100%, #ebedfc 0%, transparent 70%)',
-		'#ffffff',
-	].join(', '),
-};
+const gradientText = 'bg-gradient-to-r from-[#0a0d2c] to-[#1e3a9e] bg-clip-text text-transparent';
 
 export default function Agency() {
 	const [activeTab, setActiveTab] = useState('growth');
@@ -33,7 +25,7 @@ export default function Agency() {
 	];
 
 	return (
-		<section id="agencies" className="py-24 px-4" style={sectionBg}>
+		<section id="agencies" className="py-24 px-4 bg-gradient-to-b from-white to-[#F0F8FF]/30">
 			<div className="max-w-6xl mx-auto">
 				{/* Header */}
 				<div className="text-center mb-16">
@@ -41,7 +33,7 @@ export default function Agency() {
 						For Agencies
 					</p>
 					<h2 className="text-[32px] md:text-[44px] font-semibold text-[#07133a] tracking-[-0.03em] max-w-5xl mx-auto leading-[1.2] mb-12">
-						We fuel demand and empower agencies to execute with unmatched efficiency and reliability.
+						We fuel demand and empower agencies to execute with unmatched <span className={gradientText}> efficiency and reliability.</span>
 					</h2>
 
 					{/* Tab switcher */}

@@ -3,6 +3,8 @@ import CTAButton from './CTAButton';
 import { Quotes, CaretLeft, CaretRight, Star } from '@phosphor-icons/react';
 import { SiFacebook, SiX } from 'react-icons/si';
 
+const gradientText = 'bg-gradient-to-r from-[#0a0d2c] to-[#1e3a9e] bg-clip-text text-transparent';
+
 interface TestimonialItem {
 	id: string;
 	name: string;
@@ -283,7 +285,9 @@ export default function Testimonials() {
 				<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
 					Testimonial
 				</p>
-				<h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#0B132B] tracking-tight">Trusted by Professionals</h2>
+				<h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#0B132B] tracking-tight">
+					Trusted by <span className={gradientText}>Professionals</span>
+				</h2>
 			</div>
 
 			{/* Carousel Container with Edge Gradients */}

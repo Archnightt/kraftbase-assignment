@@ -3,6 +3,8 @@ import CTAButton from './CTAButton';
 import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 import { HiOutlineEnvelope, HiOutlineMapPin } from 'react-icons/hi2';
 
+const gradientText = 'bg-gradient-to-r from-[#0a0d2c] to-[#1e3a9e] bg-clip-text text-transparent';
+
 /*
  * Arches = two concentric TRUE semicircles (same radius on x and y), measured from the Figma overlay.
  * Everything is in a 1000-unit-wide space and scales uniformly with the footer width, so they never stretch.
@@ -77,7 +79,9 @@ export default function Footer() {
 							Contact us
 						</p>
 						<h2 className="mx-auto max-w-[800px] text-[28px] font-semibold leading-[1.13] tracking-[-0.055em] text-[#07133a] sm:text-[36px] md:text-[44px] lg:text-[48px]">
-							We also need to have contact <br /> form on the website
+							We also need to <span className={gradientText}>have contact</span>
+							<br />
+							form on the <span className={gradientText}>website</span>
 						</h2>
 						<p className="mx-auto mt-6 max-w-[560px] text-[16px] leading-[1.55] tracking-[-0.02em] text-[#777b84] sm:text-[18px] md:mt-8 md:text-[20px]">
 							Our tool is designed with agencies &amp; collection managers in mind, ensuring user-friendly experience tailored to their
@@ -184,7 +188,7 @@ function HeroBackdrop() {
 				<ArchFrame>
 					{/* Outer arch: Instagram (left), YouTube (right) */}
 					<SocialBubble social={socials[0]} style={{ ...onArch(OUTER_R, -40), transform: 'rotate(45deg)' }} />
-					<SocialBubble social={socials[2]} style={{ ...onArch(OUTER_R, 46), transform: 'rotate(45deg)' }} />
+					<SocialBubble social={socials[2]} style={{ ...onArch(OUTER_R, 46), transform: 'rotate(25deg)' }} />
 
 					{/* Inner arch: Facebook (left), X (right) */}
 					<SocialBubble social={socials[1]} style={{ ...onArch(INNER_R, -56), transform: 'rotate(45deg)' }} />
@@ -210,13 +214,12 @@ function ArchFrame({ children, style }: { children: ReactNode; style?: CSSProper
 		</div>
 	);
 }
-
 function SocialBubble({ social, style }: { social: (typeof socials)[number]; style: CSSProperties }) {
 	const { Icon } = social;
 	return (
 		<span
 			style={style}
-			className="absolute grid size-[48px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_8px_24px_rgba(94,106,134,0.12)]">
+			className="absolute grid size-[48px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/40 bg-gradient-to-b from-[#f3f4f7]/80 to-[#e5e8f0]/90 shadow-[0_12px_32px_rgba(150,155,170,0.15)] backdrop-blur-md">
 			<Icon className={`size-[20px] ${social.className}`} />
 		</span>
 	);
