@@ -73,10 +73,9 @@ export default function Footer() {
 						</div>
 
 						{/* Eyebrow */}
-						<p className="mb-4 text-[22px] font-semibold tracking-[-0.03em] bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-clip-text text-transparent sm:text-[16px]">
-							Contact Us
+						<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
+							Contact us
 						</p>
-
 						<h2 className="mx-auto max-w-[800px] text-[28px] font-semibold leading-[1.13] tracking-[-0.055em] text-[#07133a] sm:text-[36px] md:text-[44px] lg:text-[48px]">
 							We also need to have contact <br /> form on the website
 						</h2>

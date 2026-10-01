@@ -8,7 +8,7 @@ import aflImg from '../assets/AFL.png';
 const INK = '#0a0d2c';
 const gradientText = 'bg-gradient-to-r from-[#0a0d2c] to-[#1e3a9e] bg-clip-text text-transparent';
 
-// Soft lavender glow on the edges of the section, white in the middle (as in Figma)
+// Soft lavender glow on the edges of the section
 const sectionBg = {
 	background: [
 		'radial-gradient(60% 45% at 0% 8%, #eaf1ff 0%, transparent 70%)',
@@ -78,7 +78,9 @@ export default function Features() {
 	return (
 		<section id="lenders" className="pt-24 pb-6 px-4 md:px-8 relative overflow-x-clip" style={sectionBg}>
 			<div className="max-w-[1252px] mx-auto text-center mb-12 relative z-10">
-				<p className="text-[18px] font-semibold text-[#3b6cf0] mb-4">For Lenders</p>
+				<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
+					For Lenders
+				</p>
 				<h2
 					className="text-[32px] md:text-[42px] font-semibold tracking-[-0.03em] max-w-[700px] mx-auto leading-[1.2] md:leading-[1.33]"
 					style={{ color: INK }}>

@@ -4,6 +4,16 @@ import icon1 from '../assets/icon1.svg';
 import icon2 from '../assets/icon2.svg';
 import icon3 from '../assets/icon3.svg';
 
+// Soft lavender glow on the edges of the section
+const sectionBg = {
+	background: [
+		'radial-gradient(60% 45% at 0% 8%, #eaf1ff 0%, transparent 70%)',
+		'radial-gradient(45% 55% at 100% 35%, #e4e6fb 0%, transparent 70%)',
+		'radial-gradient(80% 35% at 50% 100%, #ebedfc 0%, transparent 70%)',
+		'#ffffff',
+	].join(', '),
+};
+
 export default function Agency() {
 	const [activeTab, setActiveTab] = useState('growth');
 
@@ -23,11 +33,13 @@ export default function Agency() {
 	];
 
 	return (
-		<section id="agencies" className="py-24 px-4 bg-gradient-to-b from-white to-[#F0F8FF]/30">
+		<section id="agencies" className="py-24 px-4" style={sectionBg}>
 			<div className="max-w-6xl mx-auto">
 				{/* Header */}
 				<div className="text-center mb-16">
-					<p className="text-[20px] font-bold text-[#1952F1] mb-6">For Agencies</p>
+					<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
+						For Agencies
+					</p>
 					<h2 className="text-[32px] md:text-[44px] font-semibold text-[#07133a] tracking-[-0.03em] max-w-5xl mx-auto leading-[1.2] mb-12">
 						We fuel demand and empower agencies to execute with unmatched efficiency and reliability.
 					</h2>

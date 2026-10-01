@@ -43,6 +43,21 @@ const testimonials: TestimonialItem[] = [
 	},
 ];
 
+// Card gradient
+const CARD_BG = [
+	// top-left: lavender
+	'radial-gradient(ellipse 55% 50% at 0% 0%, rgba(140,143,255,0.31) 0%, rgba(206,213,249,0.35) 40%, rgba(255,255,255,0) 100%)',
+
+	// bottom-right: soft blue
+	'radial-gradient(ellipse 55% 50% at 100% 100%, rgba(140,143,255,0.28) 0%, rgba(175,213,234,0.35) 40%, rgba(255,255,255,0) 100%)',
+
+	// top-right: cyan accent
+	'radial-gradient(ellipse 35% 30% at 100% 0%, rgba(208,237,250,0.7) 0%, rgba(208,237,250,0) 100%)',
+
+	// white base for legible text
+	'#FFFFFF',
+].join(', ');
+
 // Repeat 5 times to provide a seamless infinite scroll loop
 const REPEAT_COUNT = 5;
 const LOOPED_ITEMS = Array.from({ length: REPEAT_COUNT }, (_, setIdx) =>
@@ -265,10 +280,9 @@ export default function Testimonials() {
 			/>
 			{/* Header */}
 			<div className="relative z-10 max-w-4xl mx-auto text-center mb-10 md:mb-14 px-4">
-				<p className="mb-4 text-[20px] font-semibold tracking-[-0.03em] bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-clip-text text-transparent sm:text-[16px]">
+				<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
 					Testimonial
 				</p>
-
 				<h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#0B132B] tracking-tight">Trusted by Professionals</h2>
 			</div>
 
@@ -310,11 +324,8 @@ export default function Testimonials() {
 								<div
 									className="rounded-[24px] p-6 sm:p-7 md:p-8 flex-1 flex flex-col justify-between"
 									style={{
-										background: 'rgba(255,255,255,0.72)',
-										backdropFilter: 'blur(2px)',
-										WebkitBackdropFilter: 'blur(2px)',
-										border: '1px solid rgba(255,255,255,0.85)',
-										boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.6)',
+										background: CARD_BG,
+										border: '1px solid rgba(190,200,250,0.7)',
 									}}>
 									{/* Top: Avatar + Name + Quotes */}
 									<div>
