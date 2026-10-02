@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import CTAButton from './CTAButton';
-import { Quotes, CaretLeft, CaretRight, Star } from '@phosphor-icons/react';
+import { PiQuotesFill, PiCaretLeftBold, PiCaretRightBold, PiStarFill } from 'react-icons/pi';
 import { SiFacebook, SiX } from 'react-icons/si';
 
 const gradientText = 'bg-gradient-to-r from-[#0a0d2c] to-[#1e3a9e] bg-clip-text text-transparent';
@@ -358,7 +358,7 @@ export default function Testimonials() {
 													<p className="text-[12px] sm:text-[13px] font-regular text-slate-500 mt-0.5">{item.role}</p>
 												</div>
 											</div>
-											<Quotes weight="fill" className="text-blue-200/80 text-3xl sm:text-4xl flex-shrink-0" />
+											<PiQuotesFill className="text-blue-200/80 text-3xl sm:text-4xl flex-shrink-0" />
 										</div>
 
 										{/* Testimonial Quote */}
@@ -371,7 +371,7 @@ export default function Testimonials() {
 									<div className="flex items-center justify-between pt-2">
 										<div className="flex items-center gap-1 text-[#FBBF24]">
 											{Array.from({ length: item.stars }).map((_, s) => (
-												<Star key={s} weight="fill" className="h-4 w-4 sm:h-5 sm:w-5" />
+												<PiStarFill key={s} className="h-4 w-4 sm:h-5 sm:w-5" />
 											))}
 										</div>
 
@@ -405,7 +405,7 @@ export default function Testimonials() {
 											backgroundClip: 'padding-box, border-box',
 										}}
 										aria-label="Previous testimonial">
-										<CaretLeft size={18} weight="bold" color="#6D6D6D" />
+										<PiCaretLeftBold size={18} color="#6D6D6D" />
 									</button>
 									<button
 										onClick={(e) => {
@@ -415,7 +415,7 @@ export default function Testimonials() {
 										className="w-10 h-10 rounded-full flex items-center justify-center text-white active:scale-95 transition-all cursor-pointer"
 										style={{ background: 'linear-gradient(135deg, #1952F1, #418DF8)' }}
 										aria-label="Next testimonial">
-										<CaretRight size={18} weight="bold" />
+										<PiCaretRightBold size={18} />
 									</button>
 								</div>
 							</div>

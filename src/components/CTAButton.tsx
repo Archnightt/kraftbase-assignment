@@ -1,4 +1,4 @@
-import { ArrowUpRight } from '@phosphor-icons/react';
+import { PiArrowUpRightBold } from 'react-icons/pi';
 
 interface CTAButtonSize {
 	width: number;
@@ -114,7 +114,7 @@ export default function CTAButton({
 						{/* Arrow nudges up-right on hover */}
 						{showIcon && (
 							<span className="relative inline-flex transition-transform duration-300 ease-out group-hover:translate-x-[3px] group-hover:-translate-y-[3px]">
-								<ArrowUpRight size={isCompact ? 8 : isMedium ? 11 : 15} weight="bold" />
+								<PiArrowUpRightBold size={isCompact ? 8 : isMedium ? 11 : 15} />
 							</span>
 						)}
 					</button>

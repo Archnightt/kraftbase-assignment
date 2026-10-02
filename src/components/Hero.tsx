@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowDownRight } from '@phosphor-icons/react';
+import { PiArrowDownRightBold } from 'react-icons/pi';
 import CTAButton from './CTAButton';
 import blankCardImg from '../assets/blank-card.png';
 import BajajImg from '../assets/Bajaj.svg';
@@ -273,7 +273,7 @@ export default function Hero() {
 											className="relative flex cursor-pointer items-center justify-center gap-2 rounded-[15px] bg-white px-7 py-[13px] text-sm font-semibold tracking-wide text-slate-700 shadow-[0_1px_3px_rgba(0,0,0,0.03)] transition-all duration-300 hover:bg-slate-50">
 											<span>How We work</span>
 											<span className="inline-flex transition-transform duration-300 ease-out group-hover:translate-x-[2px] group-hover:translate-y-[2px]">
-												<ArrowDownRight size={15} weight="bold" />
+												<PiArrowDownRightBold size={15} />
 											</span>
 										</button>
 									</div>

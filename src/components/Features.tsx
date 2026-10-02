@@ -1,5 +1,5 @@
-import { Users, ToggleLeft, ChartLineUp, MagnifyingGlass } from '@phosphor-icons/react';
-import type { Icon } from '@phosphor-icons/react';
+import { PiUsersFill, PiToggleLeftFill, PiChartLineUpFill, PiMagnifyingGlassBold } from 'react-icons/pi';
+import type { IconType } from 'react-icons';
 import staffImg from '../assets/staff.png';
 import apiIntegrationImg from '../assets/API_Integration.png';
 import drivenByDataImg from '../assets/DrivenByData.png';
@@ -20,8 +20,7 @@ const sectionBg = {
 type Feature = {
 	title: string;
 	description: string;
-	Icon: Icon;
-	weight: 'fill' | 'bold';
+	Icon: IconType;
 	img: string;
 	alt: string;
 	fit: { w: number; x: number; mt: number; mb: number };
@@ -33,8 +32,7 @@ const features: Feature[] = [
 		title: 'Intuitive & Agent Focused',
 		description:
 			'Our tool is designed with agencies & collection managers in mind, ensuring user-friendly experience tailored to their needs',
-		Icon: Users,
-		weight: 'fill',
+		Icon: PiUsersFill,
 		img: staffImg,
 		alt: 'Staff',
 		fit: { w: 107, x: -3.5, mt: 0, mb: -14 },
@@ -44,8 +42,7 @@ const features: Feature[] = [
 		title: 'Highly Customizable',
 		description:
 			'Our tool is designed with agencies & collection managers in mind, ensuring user-friendly experience tailored to their needs',
-		Icon: ToggleLeft,
-		weight: 'fill',
+		Icon: PiToggleLeftFill,
 		img: apiIntegrationImg,
 		alt: 'API Integration',
 		fit: { w: 101, x: -1.3, mt: -32, mb: 36 },
@@ -54,8 +51,7 @@ const features: Feature[] = [
 	{
 		title: 'Driven by Data',
 		description: 'Our data-driven approach equips collection managers with insights to make informed & actionable decisions',
-		Icon: ChartLineUp,
-		weight: 'fill',
+		Icon: PiChartLineUpFill,
 		img: drivenByDataImg,
 		alt: 'Driven by Data',
 		fit: { w: 130, x: -17.6, mt: -64, mb: -89 },
@@ -64,8 +60,7 @@ const features: Feature[] = [
 	{
 		title: 'Discover Agency partners',
 		description: 'Discover top-performing, tech-driven agencies designed to deliver results with minimal overhead.',
-		Icon: MagnifyingGlass,
-		weight: 'bold',
+		Icon: PiMagnifyingGlassBold,
 		img: aflImg,
 		alt: 'Discover Agency Partners',
 		fit: { w: 109, x: -5.5, mt: -51, mb: -20 },
@@ -99,11 +94,11 @@ export default function Features() {
 
 			<div className="max-w-[1252px] mx-auto border-t border-[#e8eaf3] relative z-10">
 				<div className="grid md:grid-cols-2">
-					{features.map(({ title, description, Icon, weight, img, alt, fit, cell }) => (
+					{features.map(({ title, description, Icon, img, alt, fit, cell }) => (
 						<div key={title} className={`border-[#e8eaf3] flex flex-col ${cell}`}>
 							<div className="pt-10 md:pt-12 md:max-w-[549px] box-content flow-root">
 								<h3 className="relative z-10 text-[24px] md:text-[28px] font-semibold tracking-[-0.02em] mb-5 flex items-center justify-center md:justify-start text-center md:text-left gap-3">
-									<Icon size={28} weight={weight} className="shrink-0" />
+									<Icon size={28} className="shrink-0" />
 									<span className={gradientText}>{title}</span>
 								</h3>
 								<p className="relative z-0 text-[#6b6f7b] text-[16px] md:text-[19px] leading-[1.4] mb-8 text-center md:text-left">
