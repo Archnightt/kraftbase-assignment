@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FocusEvent, type MouseEvent } from 'react';
 import { motion, MotionConfig, useMotionValue, AnimatePresence } from 'motion/react';
+import logoImg from '../assets/logo.svg';
 
 const NAV_LINKS = [
 	{ id: 'home', label: 'Home', href: '#top' },
@@ -265,7 +266,7 @@ export default function Navbar() {
 									href="#top"
 									aria-label="Collectedge home"
 									className="flex shrink-0 items-center gap-1.5 md:gap-2 text-[14px] md:text-[15px] font-medium text-[#14161a]">
-									<img src="/logo.svg" alt="" className="h-[20px] md:h-[22px] w-auto" />
+									<img src={logoImg} alt="" className="h-[20px] md:h-[22px] w-auto" />
 									<span>Collectedge</span>
 								</a>
 

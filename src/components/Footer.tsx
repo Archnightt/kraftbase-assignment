@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react';
 import CTAButton from './CTAButton';
+import logoImg from '../assets/logo.svg';
 import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 import { HiOutlineEnvelope, HiOutlineMapPin } from 'react-icons/hi2';
 
@@ -71,7 +72,7 @@ export default function Footer() {
 					<div className="relative z-10 mx-auto w-full max-w-[860px] text-center">
 						{/* Logo */}
 						<div className="mx-auto mb-10 grid size-[64px] place-items-center rounded-full bg-white shadow-[0_12px_38px_rgba(69,101,174,0.10)] sm:mb-12 sm:size-[80px]">
-							<img src="/logo.svg" alt="Collectedge" className="h-[28px] w-[28px] object-contain sm:h-[36px] sm:w-[36px]" />
+							<img src={logoImg} alt="Collectedge" className="h-[28px] w-[28px] object-contain sm:h-[36px] sm:w-[36px]" />
 						</div>
 
 						{/* Eyebrow */}
@@ -120,7 +121,7 @@ export default function Footer() {
 
 					<section className="flex flex-col items-center px-4 py-4 text-center lg:py-7 order-1 lg:order-2">
 						<a href="#top" className="inline-flex items-center gap-2 text-[20px] font-semibold tracking-[-0.045em] sm:text-[24px]">
-							<img src="/logo.svg" alt="" className="size-[28px] object-contain" />
+							<img src={logoImg} alt="" className="size-[28px] object-contain" />
 							Collectedge
 						</a>
 						<p className="mt-5 max-w-[500px] text-[15px] leading-[1.55] tracking-[-0.02em] text-[#777b84] sm:text-[16px]">

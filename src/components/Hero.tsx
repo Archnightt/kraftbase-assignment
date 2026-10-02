@@ -2,6 +2,20 @@ import { motion } from 'motion/react';
 import { ArrowDownRight } from '@phosphor-icons/react';
 import CTAButton from './CTAButton';
 import blankCardImg from '../assets/blank-card.png';
+import BajajImg from '../assets/Bajaj.svg';
+import iciciImg from '../assets/icici.svg';
+import YesBankImg from '../assets/YesBank.svg';
+import udaanImg from '../assets/udaan.svg';
+import InduslndBankImg from '../assets/InduslndBank.svg';
+import HealthImg from '../assets/Health.png';
+import AFLImg from '../assets/AFL.png';
+import meterImg from '../assets/meter.svg';
+import lightningImg from '../assets/lightning.svg';
+import InteractionsImg from '../assets/Interactions.png';
+import DollarImg from '../assets/Dollar.svg';
+import RogerImg from '../assets/Roger.png';
+import CheyenneImg from '../assets/Cheyenne.png';
+import DialerImg from '../assets/Dialer.svg';
 
 const avatars = [1, 2, 3];
 
@@ -31,11 +45,11 @@ const logoMask = {
 
 export default function Hero() {
 	const LOGOS = [
-		{ src: '/Bajaj.svg', alt: 'Bajaj' },
-		{ src: '/icici.svg', alt: 'ICICI' },
-		{ src: '/YesBank.svg', alt: 'Yes Bank' },
-		{ src: '/udaan.svg', alt: 'Udaan' },
-		{ src: '/InduslndBank.svg', alt: 'IndusInd Bank' },
+		{ src: BajajImg, alt: 'Bajaj' },
+		{ src: iciciImg, alt: 'ICICI' },
+		{ src: YesBankImg, alt: 'Yes Bank' },
+		{ src: udaanImg, alt: 'Udaan' },
+		{ src: InduslndBankImg, alt: 'IndusInd Bank' },
 	];
 
 	function LogoGroup() {
@@ -101,7 +115,7 @@ export default function Hero() {
 					transition={{ duration: 0.8, delay: 0.3 }}
 					className="pointer-events-none absolute left-[-10%] top-[5%] z-10 hidden rotate-[10deg] lg:block 2xl:left-[-13.2%]">
 					<img
-						src="/Health.png"
+						src={HealthImg}
 						alt="Operational Health"
 						className="w-[min(38vw,643px)] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]"
 					/>
@@ -113,7 +127,7 @@ export default function Hero() {
 					transition={{ duration: 0.8, delay: 0.4 }}
 					className="pointer-events-none absolute left-[-2%] top-[45%] z-10 hidden -rotate-[8deg] lg:block 2xl:left-[-4.8%]">
 					<img
-						src="/AFL.png"
+						src={AFLImg}
 						alt="AFL Services"
 						className="w-[min(28vw,460px)] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]"
 					/>
@@ -124,7 +138,7 @@ export default function Hero() {
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.5, delay: 0.6 }}
 					className="pointer-events-none absolute left-[15%] top-[25%] z-20 hidden h-[60px] w-[60px] items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-					<img src="/meter.svg" alt="Meter" className="h-10 w-10" />
+					<img src={meterImg} alt="Meter" className="h-10 w-10" />
 				</motion.div>
 
 				<motion.div
@@ -132,7 +146,7 @@ export default function Hero() {
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.5, delay: 0.7 }}
 					className="pointer-events-none absolute left-[5%] top-[70%] z-20 hidden h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-					<img src="/lightning.svg" alt="Lightning" className="h-8 w-8" />
+					<img src={lightningImg} alt="Lightning" className="h-8 w-8" />
 				</motion.div>
 
 				{/* -- RIGHT ASSETS -- */}
@@ -142,7 +156,7 @@ export default function Hero() {
 					transition={{ duration: 0.8, delay: 0.3 }}
 					className="pointer-events-none absolute right-[-12%] top-[8%] z-10 hidden rotate-[8deg] lg:block 2xl:right-[-16.1%]">
 					<img
-						src="/Interactions.png"
+						src={InteractionsImg}
 						alt="Interactions"
 						className="w-[min(40vw,655px)] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]"
 					/>
@@ -153,7 +167,7 @@ export default function Hero() {
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.5, delay: 0.6 }}
 					className="pointer-events-none absolute right-[6%] top-[15%] z-20 hidden h-[62px] w-[62px] items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-					<img src="/Dollar.svg" alt="Dollar" className="h-10 w-10" />
+					<img src={DollarImg} alt="Dollar" className="h-10 w-10" />
 				</motion.div>
 
 				<motion.div
@@ -162,7 +176,7 @@ export default function Hero() {
 					transition={{ duration: 0.75, delay: 0.55 }}
 					className="pointer-events-none absolute right-[-5%] top-[65%] z-20 hidden rotate-[2deg] lg:block 2xl:right-[-6.7%]">
 					<img
-						src="/Roger.png"
+						src={RogerImg}
 						alt="Roger Kenter"
 						className="w-[min(25vw,396px)] max-w-none drop-shadow-[0_14px_24px_rgba(41,67,110,0.12)]"
 					/>
@@ -174,7 +188,7 @@ export default function Hero() {
 					transition={{ duration: 0.75, delay: 0.45 }}
 					className="pointer-events-none absolute right-[-8%] top-[52%] z-20 hidden rotate-[1deg] lg:block 2xl:right-[-9.7%]">
 					<img
-						src="/Cheyenne.png"
+						src={CheyenneImg}
 						alt="Cheyenne Gouse"
 						className="w-[min(35vw,561px)] max-w-none drop-shadow-[0_16px_28px_rgba(41,67,110,0.13)]"
 					/>
@@ -185,7 +199,7 @@ export default function Hero() {
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.5, delay: 0.65 }}
 					className="pointer-events-none absolute right-[12%] top-[58%] z-20 hidden h-14 w-14 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-					<img src="/Dialer.svg" alt="Dialer" className="h-9 w-9" />
+					<img src={DialerImg} alt="Dialer" className="h-9 w-9" />
 				</motion.div>
 
 				{/* -- CENTRAL TEXT -- */}
