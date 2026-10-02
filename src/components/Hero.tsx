@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { PiArrowDownRightBold } from 'react-icons/pi';
 import CTAButton from './CTAButton';
-import blankCardImg from '../assets/blank-card.webp';
+import blankCardImg from '../assets/blank.webp';
 import BajajImg from '../assets/Bajaj.webp';
 import iciciImg from '../assets/ICICI.webp';
 import YesBankImg from '../assets/YesBank.webp';
@@ -19,8 +19,7 @@ import DialerImg from '../assets/Dialer.svg';
 
 const avatars = [1, 2, 3];
 
-// Bluer wash like the Figma: pale blue top-left, periwinkle glow on both side edges and along the
-// bottom, lighter area behind the headline. Raise/lower the rgba alpha (last number) to tune strength.
+// Blue gradient glows
 const heroBg = {
 	background: [
 		'radial-gradient(ellipse 46% 40% at 50% 36%, rgba(255,255,255,0.85) 0%, transparent 75%)',
@@ -31,15 +30,14 @@ const heroBg = {
 	].join(', '),
 };
 
-// Blank frosted cards behind the real cards, placed from the Figma outline.
+// Blank filler cards
 const BLANK_CARDS = [
 	{ cx: 9.1, cy: 34.5, w: 357, rot: 0 },
 	{ cx: 8.6, cy: 59.7, w: 289, rot: -12 },
 	{ cx: 90.4, cy: 38.8, w: 357, rot: -8 },
 ];
 
-// Floating cards, measured against the Figma screenshot (same 1470x919 viewport) by feature-matching each card.
-// left/top are % of the SECTION (not the text wrapper), w is vw, rot is degrees. Tweak these to nudge a card.
+// left/top are % of the SECTION, w is vw, rot is degrees.
 const CARDS = [
 	{
 		img: HealthImg,

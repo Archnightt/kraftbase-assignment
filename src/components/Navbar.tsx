@@ -234,6 +234,25 @@ export default function Navbar() {
 		setIsMobileMenuOpen(false);
 	};
 
+	const [isHidden, setIsHidden] = useState(false);
+	const lastScrollY = useRef(0);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+			// Hide on scroll down if scrolled past 50px, show on scroll up
+			if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+				setIsHidden(true);
+			} else {
+				setIsHidden(false);
+			}
+			lastScrollY.current = currentScrollY;
+		};
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, []);
+
 	return (
 		<MotionConfig reducedMotion="user">
 			{/* Mobile Blurred Backdrop */}
@@ -250,7 +269,10 @@ export default function Navbar() {
 				)}
 			</AnimatePresence>
 
-			<div className="absolute left-1/2 top-5 z-50 -translate-x-1/2 w-[70vw] md:w-[774px] max-w-[774px] h-fit">
+			<div
+				className={`fixed left-1/2 top-5 z-[100] w-[90vw] md:w-[774px] max-w-[774px] h-fit transition-transform duration-300 ease-in-out -translate-x-1/2 ${
+					isHidden ? 'translate-y-[-150%] lg:translate-y-0' : 'translate-y-0'
+				}`}>
 				{/* Main Container*/}
 				<div className="w-full h-fit p-[4px] md:p-[6px] rounded-[32px] md:rounded-[36px] border border-[#d9e2e8] backdrop-blur-md transition-all duration-300">
 					<div
