@@ -3,7 +3,7 @@ import type { Icon } from '@phosphor-icons/react';
 import staffImg from '../assets/staff.png';
 import apiIntegrationImg from '../assets/API_Integration.png';
 import drivenByDataImg from '../assets/DrivenByData.png';
-import aflImg from '../assets/AFL.png';
+import aflImg from '../assets/AFL-Enquiry.png';
 
 const gradientText = 'bg-gradient-to-r from-[#0a0d2c] to-[#1e3a9e] bg-clip-text text-transparent';
 
@@ -102,11 +102,13 @@ export default function Features() {
 					{features.map(({ title, description, Icon, weight, img, alt, fit, cell }) => (
 						<div key={title} className={`border-[#e8eaf3] flex flex-col ${cell}`}>
 							<div className="pt-10 md:pt-12 md:max-w-[549px] box-content flow-root">
-								<h3 className="relative z-10 text-[24px] md:text-[28px] font-semibold tracking-[-0.02em] mb-5 flex items-center gap-3">
+								<h3 className="relative z-10 text-[24px] md:text-[28px] font-semibold tracking-[-0.02em] mb-5 flex items-center justify-center md:justify-start text-center md:text-left gap-3">
 									<Icon size={28} weight={weight} className="shrink-0" />
 									<span className={gradientText}>{title}</span>
 								</h3>
-								<p className="relative z-0 text-[#6b6f7b] text-[16px] md:text-[19px] leading-[1.4] mb-8">{description}</p>
+								<p className="relative z-0 text-[#6b6f7b] text-[16px] md:text-[19px] leading-[1.4] mb-8 text-center md:text-left">
+									{description}
+								</p>
 								<img
 									src={img}
 									alt={alt}
