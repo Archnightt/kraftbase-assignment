@@ -1,9 +1,9 @@
 import { PiUsersFill, PiToggleLeftFill, PiChartLineUpFill, PiMagnifyingGlassBold } from 'react-icons/pi';
 import type { IconType } from 'react-icons';
-import staffImg from '../assets/staff.png';
-import apiIntegrationImg from '../assets/API_Integration.png';
-import drivenByDataImg from '../assets/DrivenByData.png';
-import aflImg from '../assets/AFL-Enquiry.png';
+import staffImg from '../assets/staff.webp';
+import apiIntegrationImg from '../assets/API_Integration.webp';
+import drivenByDataImg from '../assets/DrivenByData.webp';
+import aflImg from '../assets/AFL-Enquiry.webp';
 
 const gradientText = 'bg-gradient-to-r from-[#0a0d2c] to-[#1e3a9e] bg-clip-text text-transparent';
 

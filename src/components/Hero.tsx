@@ -1,20 +1,20 @@
 import { motion } from 'motion/react';
 import { PiArrowDownRightBold } from 'react-icons/pi';
 import CTAButton from './CTAButton';
-import blankCardImg from '../assets/blank-card.png';
-import BajajImg from '../assets/Bajaj.svg';
-import iciciImg from '../assets/icici.svg';
-import YesBankImg from '../assets/YesBank.svg';
-import udaanImg from '../assets/udaan.svg';
-import InduslndBankImg from '../assets/InduslndBank.svg';
-import HealthImg from '../assets/Health.png';
-import AFLImg from '../assets/AFL.png';
+import blankCardImg from '../assets/blank-card.webp';
+import BajajImg from '../assets/Bajaj.webp';
+import iciciImg from '../assets/ICICI.webp';
+import YesBankImg from '../assets/YesBank.webp';
+import udaanImg from '../assets/udaan.webp';
+import InduslndBankImg from '../assets/Induslnd.webp';
+import HealthImg from '../assets/Health.webp';
+import AFLImg from '../assets/AFL.webp';
 import meterImg from '../assets/meter.svg';
 import lightningImg from '../assets/lightning.svg';
-import InteractionsImg from '../assets/Interactions.png';
+import InteractionsImg from '../assets/Interactions.webp';
 import DollarImg from '../assets/Dollar.svg';
-import RogerImg from '../assets/Roger.png';
-import CheyenneImg from '../assets/Cheyenne.png';
+import RogerImg from '../assets/Roger.webp';
+import CheyenneImg from '../assets/Cheyenne.webp';
 import DialerImg from '../assets/Dialer.svg';
 
 const avatars = [1, 2, 3];
@@ -38,10 +38,88 @@ const BLANK_CARDS = [
 	{ cx: 90.4, cy: 38.8, w: 357, rot: -8 },
 ];
 
-const logoMask = {
-	maskImage: 'linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%)',
-	WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%)',
-};
+// Floating cards, measured against the Figma screenshot (same 1470x919 viewport) by feature-matching each card.
+// left/top are % of the SECTION (not the text wrapper), w is vw, rot is degrees. Tweak these to nudge a card.
+const CARDS = [
+	{
+		img: HealthImg,
+		alt: 'Operational Health',
+		left: -8.73,
+		top: 6.24,
+		w: 37.62,
+		rot: 9.38,
+		z: 10,
+		fromX: -50,
+		delay: 0.3,
+		dur: 0.8,
+		shadow: 'drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]',
+	},
+	{
+		img: AFLImg,
+		alt: 'AFL Services',
+		left: -3.65,
+		top: 41.09,
+		w: 32.48,
+		rot: -5.25,
+		z: 10,
+		fromX: -50,
+		delay: 0.4,
+		dur: 0.8,
+		shadow: 'drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]',
+	},
+	{
+		img: InteractionsImg,
+		alt: 'Interactions',
+		left: 71.21,
+		top: 8.86,
+		w: 37.96,
+		rot: 6.76,
+		z: 10,
+		fromX: 50,
+		delay: 0.3,
+		dur: 0.8,
+		shadow: 'drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]',
+	},
+	{
+		img: RogerImg,
+		alt: 'Roger Kenter',
+		left: 79.63,
+		top: 58.59,
+		w: 26.97,
+		rot: 3.96,
+		z: 20,
+		fromX: 35,
+		delay: 0.55,
+		dur: 0.75,
+		shadow: 'drop-shadow-[0_14px_24px_rgba(41,67,110,0.12)]',
+	},
+	{
+		img: CheyenneImg,
+		alt: 'Cheyenne Gouse',
+		left: 71.46,
+		top: 48.63,
+		w: 37.91,
+		rot: -5.49,
+		z: 20,
+		fromX: 30,
+		delay: 0.45,
+		dur: 0.75,
+		shadow: 'drop-shadow-[0_16px_28px_rgba(41,67,110,0.13)]',
+	},
+];
+
+// Round icon bubbles. left/top = CENTER of the bubble (% of section); size/glyph in vw.
+const ICONS = [
+	{ img: meterImg, alt: 'Meter', left: 19.25, top: 25.3, size: 3.9, glyph: 2.2, delay: 0.6 },
+	{ img: lightningImg, alt: 'Lightning', left: 5.68, top: 72.4, size: 3.1, glyph: 2.65, delay: 0.7 },
+	{ img: DollarImg, alt: 'Dollar', left: 93.8, top: 15.4, size: 4.1, glyph: 2.7, delay: 0.6 },
+	{ img: DialerImg, alt: 'Dialer', left: 88.1, top: 56.4, size: 3.7, glyph: 2.6, delay: 0.65 },
+];
+
+// Wider, softer fade so logos are nearly gone well before the screen edges (matches Figma).
+const MASK =
+	'linear-gradient(to right, transparent 0%, transparent 8%, rgba(0,0,0,0.5) 20%, black 34%, black 66%, rgba(0,0,0,0.5) 80%, transparent 92%, transparent 100%)';
+const logoMask = { maskImage: MASK, WebkitMaskImage: MASK };
 
 export default function Hero() {
 	const LOGOS = [
@@ -104,104 +182,45 @@ export default function Hero() {
 			))}
 
 			{/* =========================================================
+				FLOATING CARDS + ICONS (positioned relative to the section)
+			========================================================= */}
+			<div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
+				{CARDS.map((c) => (
+					<div
+						key={c.alt}
+						className="absolute"
+						style={{ left: `${c.left}%`, top: `${c.top}%`, width: `${c.w}vw`, transform: `rotate(${c.rot}deg)`, zIndex: c.z }}>
+						<motion.div
+							initial={{ opacity: 0, x: c.fromX, y: 20 }}
+							animate={{ opacity: 1, x: 0, y: 0 }}
+							transition={{ duration: c.dur, delay: c.delay }}>
+							<img src={c.img} alt={c.alt} draggable={false} className={`block w-full max-w-none ${c.shadow}`} />
+						</motion.div>
+					</div>
+				))}
+
+				{ICONS.map((ic) => (
+					<div
+						key={ic.alt}
+						className="absolute z-20"
+						style={{ left: `${ic.left}%`, top: `${ic.top}%`, transform: 'translate(-50%, -50%)' }}>
+						<motion.div
+							initial={{ opacity: 0, scale: 0 }}
+							animate={{ opacity: 1, scale: 1 }}
+							transition={{ duration: 0.5, delay: ic.delay }}
+							className="flex items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)]"
+							style={{ width: `${ic.size}vw`, height: `${ic.size}vw` }}>
+							<img src={ic.img} alt={ic.alt} style={{ width: `${ic.glyph}vw`, height: `${ic.glyph}vw` }} />
+						</motion.div>
+					</div>
+				))}
+			</div>
+
+			{/* =========================================================
 				MAIN CONTENT WRAPPER 
 				(Groups floating elements & central text together)
 			========================================================= */}
 			<div className="relative flex flex-grow flex-col items-center justify-center pt-28 pb-12 lg:pt-32 lg:pb-24">
-				{/* -- LEFT ASSETS -- */}
-				<motion.div
-					initial={{ opacity: 0, x: -50, y: 20 }}
-					animate={{ opacity: 1, x: 0, y: 0 }}
-					transition={{ duration: 0.8, delay: 0.3 }}
-					className="pointer-events-none absolute left-[-10%] top-[5%] z-10 hidden rotate-[10deg] lg:block 2xl:left-[-13.2%]">
-					<img
-						src={HealthImg}
-						alt="Operational Health"
-						className="w-[min(38vw,643px)] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]"
-					/>
-				</motion.div>
-
-				<motion.div
-					initial={{ opacity: 0, x: -50, y: 20 }}
-					animate={{ opacity: 1, x: 0, y: 0 }}
-					transition={{ duration: 0.8, delay: 0.4 }}
-					className="pointer-events-none absolute left-[-2%] top-[45%] z-10 hidden -rotate-[8deg] lg:block 2xl:left-[-4.8%]">
-					<img
-						src={AFLImg}
-						alt="AFL Services"
-						className="w-[min(28vw,460px)] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]"
-					/>
-				</motion.div>
-
-				<motion.div
-					initial={{ opacity: 0, scale: 0 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.5, delay: 0.6 }}
-					className="pointer-events-none absolute left-[15%] top-[25%] z-20 hidden h-[60px] w-[60px] items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-					<img src={meterImg} alt="Meter" className="h-10 w-10" />
-				</motion.div>
-
-				<motion.div
-					initial={{ opacity: 0, scale: 0 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.5, delay: 0.7 }}
-					className="pointer-events-none absolute left-[5%] top-[70%] z-20 hidden h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-					<img src={lightningImg} alt="Lightning" className="h-8 w-8" />
-				</motion.div>
-
-				{/* -- RIGHT ASSETS -- */}
-				<motion.div
-					initial={{ opacity: 0, x: 50, y: 20 }}
-					animate={{ opacity: 1, x: 0, y: 0 }}
-					transition={{ duration: 0.8, delay: 0.3 }}
-					className="pointer-events-none absolute right-[-12%] top-[8%] z-10 hidden rotate-[8deg] lg:block 2xl:right-[-16.1%]">
-					<img
-						src={InteractionsImg}
-						alt="Interactions"
-						className="w-[min(40vw,655px)] max-w-none drop-shadow-[0_18px_30px_rgba(41,67,110,0.12)]"
-					/>
-				</motion.div>
-
-				<motion.div
-					initial={{ opacity: 0, scale: 0 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.5, delay: 0.6 }}
-					className="pointer-events-none absolute right-[6%] top-[15%] z-20 hidden h-[62px] w-[62px] items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-					<img src={DollarImg} alt="Dollar" className="h-10 w-10" />
-				</motion.div>
-
-				<motion.div
-					initial={{ opacity: 0, x: 35, y: 20 }}
-					animate={{ opacity: 1, x: 0, y: 0 }}
-					transition={{ duration: 0.75, delay: 0.55 }}
-					className="pointer-events-none absolute right-[-5%] top-[65%] z-20 hidden rotate-[2deg] lg:block 2xl:right-[-6.7%]">
-					<img
-						src={RogerImg}
-						alt="Roger Kenter"
-						className="w-[min(25vw,396px)] max-w-none drop-shadow-[0_14px_24px_rgba(41,67,110,0.12)]"
-					/>
-				</motion.div>
-
-				<motion.div
-					initial={{ opacity: 0, x: 30, y: 20 }}
-					animate={{ opacity: 1, x: 0, y: 0 }}
-					transition={{ duration: 0.75, delay: 0.45 }}
-					className="pointer-events-none absolute right-[-8%] top-[52%] z-20 hidden rotate-[1deg] lg:block 2xl:right-[-9.7%]">
-					<img
-						src={CheyenneImg}
-						alt="Cheyenne Gouse"
-						className="w-[min(35vw,561px)] max-w-none drop-shadow-[0_16px_28px_rgba(41,67,110,0.13)]"
-					/>
-				</motion.div>
-
-				<motion.div
-					initial={{ opacity: 0, scale: 0 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.5, delay: 0.65 }}
-					className="pointer-events-none absolute right-[12%] top-[58%] z-20 hidden h-14 w-14 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)] lg:flex">
-					<img src={DialerImg} alt="Dialer" className="h-9 w-9" />
-				</motion.div>
-
 				{/* -- CENTRAL TEXT -- */}
 				<div className="relative z-30 mx-auto w-full max-w-[1160px] px-4 text-center sm:px-6 lg:px-8">
 					<motion.div
@@ -230,8 +249,12 @@ export default function Hero() {
 						className="mx-auto mb-7 max-w-[900px] text-[36px] font-semibold leading-[1.05] tracking-[-0.045em] text-[#080A1B] sm:text-[46px] md:text-[56px] lg:text-[70px] xl:text-[82px]">
 						Unified Platform for Late-
 						<br className="hidden sm:block" />
-						<span className="sm:hidden"> </span>Stage <span className="mx-1 font-light text-blue-500 lg:mx-2">|</span>
-						<span className="relative inline-block text-[#29468F]">DPD Resolution.</span>
+						<span className="sm:hidden"> </span>Stage{' '}
+						{/* Figma "text selection" highlight: a flat pale-blue rectangle with a solid blue bar on the left */}
+						<span className="inline-block border-l-[0.05em] border-[#4C76FF] bg-gradient-to-r from-[#4C76FF]/15 via-[#4C76FF]/[0.07] to-transparent px-[0.14em] py-[0.02em] align-baseline">
+							{/* gradient lives on an inner span so it clips to the text only, not the box */}
+							<span className="bg-gradient-to-r from-[#060A24] to-[#2A4694] bg-clip-text text-transparent">DPD Resolution.</span>
+						</span>
 					</motion.h1>
 
 					<motion.p
@@ -291,9 +314,9 @@ export default function Hero() {
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.5, delay: 0.4 }}
-				// Placed naturally at the bottom of the flex container
-				className="relative z-10 w-full pb-8">
-				<div className="mb-7 flex items-center justify-center gap-2 text-[14px] text-[#7C8DA8] sm:gap-4 sm:text-[17px]">
+				// Lifted ~66px from the bottom edge to match the Figma frame
+				className="relative z-10 w-full pb-[98px]">
+				<div className="mb-[43px] flex items-center justify-center gap-2 text-[14px] text-[#7C8DA8] sm:gap-4 sm:text-[17px]">
 					<div className="h-px w-8 border-t border-dashed border-[#CBD5E4] sm:w-16 md:w-24" />
 					<p className="whitespace-nowrap font-medium">
 						Join <span className="font-bold text-[#263554]">4,000+</span> Companies Already Growing
@@ -318,7 +341,7 @@ export default function Hero() {
 					}
 				`}</style>
 
-				<div className="relative mx-auto max-w-[1450px] overflow-hidden" style={logoMask}>
+				<div className="relative mx-auto w-full overflow-hidden" style={logoMask}>
 					<div className="animate-marquee flex w-max">
 						<LogoGroup />
 						<LogoGroup />
