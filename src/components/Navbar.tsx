@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FocusEvent, type MouseEvent } from 'react';
 import { motion, MotionConfig, useMotionValue, AnimatePresence } from 'motion/react';
 import logoImg from '../assets/logo.svg';
+import { useContactModal } from './ContactModal';
 
 const NAV_LINKS = [
 	{ id: 'home', label: 'Home', href: '#top' },
@@ -53,6 +54,7 @@ function NavLink({ label, href, isPillHere, isActive, setRef, onFocusLink, onSel
 }
 
 export default function Navbar() {
+	const { openContact } = useContactModal();
 	const [active, setActive] = useState('');
 	const [hovered, setHovered] = useState<string | null>(null);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -229,8 +231,7 @@ export default function Navbar() {
 	};
 
 	const scrollToContact = () => {
-		const el = document.getElementById('contact') || document.querySelector('footer');
-		el?.scrollIntoView({ behavior: 'smooth' });
+		openContact();
 		setIsMobileMenuOpen(false);
 	};
 
@@ -287,7 +288,7 @@ export default function Navbar() {
 								<a
 									href="#top"
 									aria-label="Collectedge home"
-									className="flex shrink-0 items-center gap-1.5 md:gap-2 text-[14px] md:text-[15px] font-medium text-[#14161a]">
+									className="flex shrink-0 items-center gap-1.5 md:gap-2 text-[14px] md:text-[15px] font-medium text-[#14161a] transition-opacity duration-200 hover:opacity-80">
 									<img src={logoImg} alt="" className="h-[20px] md:h-[22px] w-auto" />
 									<span>Collectedge</span>
 								</a>
@@ -378,17 +379,19 @@ export default function Navbar() {
 									<div className="w-[1px] h-6 bg-[#f1f4f9] mr-2" />
 									<button
 										onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-										className="p-2 text-[#111318] transition-transform active:scale-95 outline-none"
+										className="relative size-9 p-2 text-[#111318] transition-transform active:scale-95 outline-none"
+										aria-expanded={isMobileMenuOpen}
 										aria-label="Toggle mobile menu">
-										{isMobileMenuOpen ? (
-											<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-												<path d="M2 2L18 18M18 2L2 18" />
-											</svg>
-										) : (
-											<svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" strokeWidth="1.5">
-												<path d="M1 1H21M1 11H21" />
-											</svg>
-										)}
+										<span
+											className={`absolute left-2.5 right-2.5 top-[11px] h-[1.5px] origin-center rounded-full bg-current transition-transform duration-200 ${
+												isMobileMenuOpen ? 'translate-y-[6px] rotate-45' : ''
+											}`}
+										/>
+										<span
+											className={`absolute left-2.5 right-2.5 top-[23px] h-[1.5px] origin-center rounded-full bg-current transition-transform duration-200 ${
+												isMobileMenuOpen ? '-translate-y-[6px] -rotate-45' : ''
+											}`}
+										/>
 									</button>
 								</div>
 							</nav>
@@ -412,7 +415,7 @@ export default function Navbar() {
 															if (link.id === 'contact') scrollToContact();
 															else setIsMobileMenuOpen(false);
 														}}
-														className={`block py-4 text-[16px] transition-colors ${active === link.id ? 'font-medium text-[#3c87f8]' : 'font-medium text-[#4b5563]'}`}>
+														className={`block py-4 text-[16px] transition-colors duration-200 hover:text-[#3c87f8] ${active === link.id ? 'font-medium text-[#3c87f8]' : 'font-medium text-[#4b5563]'}`}>
 														{link.label}
 													</a>
 												</li>

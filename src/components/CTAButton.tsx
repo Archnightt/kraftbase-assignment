@@ -51,7 +51,7 @@ export default function CTAButton({
 
 	const inner = (
 		<div
-			className={`group inline-flex transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] ${className}`}
+			className={`group inline-flex transition-transform duration-300 hover:scale-[1.03] hover:shadow-[0_8px_22px_rgba(0,0,0,0.08)] active:scale-[0.98] ${className}`}
 			style={{
 				/* 4. Solid gray bezel (outermost layer) */
 				boxSizing: customSize ? 'border-box' : undefined,

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import CTAButton from './CTAButton';
+import Reveal from './Reveal';
 import { PiQuotesFill, PiCaretLeftBold, PiCaretRightBold, PiStarFill } from 'react-icons/pi';
 import { SiFacebook, SiX } from 'react-icons/si';
 
@@ -293,14 +294,14 @@ export default function Testimonials() {
 				}}
 			/>
 			{/* Header */}
-			<div className="relative z-10 max-w-4xl mx-auto text-center mb-6 md:mb-10 px-4">
+			<Reveal className="relative z-10 max-w-4xl mx-auto text-center mb-6 md:mb-10 px-4">
 				<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
 					Testimonial
 				</p>
 				<h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#0B132B] tracking-tight">
 					Trusted by <span className={gradientText}>Professionals</span>
 				</h2>
-			</div>
+			</Reveal>
 
 			{/* Carousel Container with Edge Gradients */}
 			<div className="relative w-full z-10">
@@ -397,7 +398,7 @@ export default function Testimonials() {
 											e.stopPropagation();
 											handlePrev();
 										}}
-										className="w-10 h-10 rounded-full bg-white flex items-center justify-center active:scale-95 transition-all cursor-pointer"
+										className="w-10 h-10 rounded-full bg-white flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-105 active:scale-95"
 										style={{
 											border: '2px solid transparent',
 											backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, #1952F1, #418DF8)',
@@ -412,7 +413,7 @@ export default function Testimonials() {
 											e.stopPropagation();
 											handleNext();
 										}}
-										className="w-10 h-10 rounded-full flex items-center justify-center text-white active:scale-95 transition-all cursor-pointer"
+										className="w-10 h-10 rounded-full flex items-center justify-center text-white cursor-pointer shadow-[0_4px_12px_rgba(25,82,241,0.22)] transition-transform duration-200 hover:scale-105 active:scale-95"
 										style={{ background: 'linear-gradient(135deg, #1952F1, #418DF8)' }}
 										aria-label="Next testimonial">
 										<PiCaretRightBold size={18} />

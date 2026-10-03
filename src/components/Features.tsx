@@ -1,5 +1,6 @@
 import { PiUsersFill, PiToggleLeftFill, PiChartLineUpFill, PiMagnifyingGlassBold } from 'react-icons/pi';
 import type { IconType } from 'react-icons';
+import Reveal from './Reveal';
 import staffImg from '../assets/staff.webp';
 import apiIntegrationImg from '../assets/API_Integration.webp';
 import drivenByDataImg from '../assets/DrivenByData.webp';
@@ -83,22 +84,22 @@ export default function Features() {
 				className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 z-0"
 				style={{ background: 'linear-gradient(to bottom, transparent 0%, #ffffff 100%)' }}
 			/>
-			<div className="max-w-[1252px] mx-auto text-center mb-12 relative z-10">
+			<Reveal className="max-w-[1252px] mx-auto text-center mb-12 relative z-10">
 				<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
 					For Lenders
 				</p>
 				<h2 className="text-[32px] text-black md:text-[42px] font-semibold tracking-[-0.03em] max-w-[700px] mx-auto leading-[1.2] md:leading-[1.33]">
 					We're changing the game with <span className={gradientText}>one complete agency management tool</span>
 				</h2>
-			</div>
+			</Reveal>
 
 			<div className="max-w-[1252px] mx-auto border-t border-[#e8eaf3] relative z-10">
 				<div className="grid md:grid-cols-2">
-					{features.map(({ title, description, Icon, img, alt, fit, cell }) => (
-						<div key={title} className={`border-[#e8eaf3] flex flex-col ${cell}`}>
-							<div className="pt-10 md:pt-12 md:max-w-[549px] box-content flow-root">
+					{features.map(({ title, description, Icon, img, alt, fit, cell }, i) => (
+						<Reveal key={title} delay={i * 0.08} amount={0.2} className={`border-[#e8eaf3] flex flex-col ${cell}`}>
+							<div className="group/feature pt-10 md:pt-12 md:max-w-[549px] box-content flow-root">
 								<h3 className="relative z-10 text-[24px] md:text-[28px] font-semibold tracking-[-0.02em] mb-5 flex items-center justify-center md:justify-start text-center md:text-left gap-3">
-									<Icon size={28} className="shrink-0" />
+									<Icon size={28} className="shrink-0 transition-transform duration-300 group-hover/feature:scale-110" />
 									<span className={gradientText}>{title}</span>
 								</h3>
 								<p className="relative z-0 text-[#6b6f7b] text-[16px] md:text-[19px] leading-[1.4] mb-8 text-center md:text-left">
@@ -108,7 +109,7 @@ export default function Features() {
 									src={img}
 									alt={alt}
 									draggable={false}
-									className="block h-auto max-w-none pointer-events-none select-none"
+									className="block h-auto max-w-none pointer-events-none select-none transition-transform duration-500 ease-out group-hover/feature:translate-y-[-4px]"
 									style={{
 										width: `${fit.w}%`,
 										marginLeft: `${fit.x}%`,
@@ -117,7 +118,7 @@ export default function Features() {
 									}}
 								/>
 							</div>
-						</div>
+						</Reveal>
 					))}
 				</div>
 			</div>

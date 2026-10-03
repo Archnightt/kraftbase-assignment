@@ -139,7 +139,7 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
 						type="button"
 						onClick={onClose}
 						aria-label="Close contact form"
-						className="absolute right-5 top-5 grid size-9 place-items-center rounded-full text-[#07133a] transition-colors hover:bg-[#f1f3f8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1952F1] sm:right-8 sm:top-8">
+						className="absolute right-5 top-5 grid size-9 place-items-center rounded-full text-[#07133a] transition-colors duration-200 hover:bg-[#f1f3f8] hover:rotate-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1952F1] sm:right-8 sm:top-8">
 						<HiOutlineXMark className="size-6" aria-hidden="true" />
 					</button>
 
@@ -223,10 +223,10 @@ function ContactForm({ titleId, onDone }: { titleId: string; onDone: () => void 
 								type="button"
 								aria-pressed={selected}
 								onClick={() => toggleService(label)}
-								className={`rounded-full border px-4 py-2 text-[14px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1952F1] sm:text-[15px] ${
+								className={`rounded-full border px-4 py-2 text-[14px] transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1952F1] sm:text-[15px] ${
 									selected
 										? 'border-[#1952F1] bg-[#eef3ff] text-[#1952F1]'
-										: 'border-[#e6e8ee] bg-white text-[#07133a] hover:border-[#c4cada]'
+										: 'border-[#e6e8ee] bg-white text-[#07133a] hover:border-[#c4cada] hover:bg-[#f8f9fc]'
 								}`}>
 								{label}
 							</button>
@@ -284,7 +284,7 @@ function ContactForm({ titleId, onDone }: { titleId: string; onDone: () => void 
 				<button
 					type="submit"
 					disabled={status === 'sending'}
-					className="rounded-full bg-gradient-to-r from-[#1952F1] to-[#418DF8] px-8 py-3.5 text-[16px] font-semibold text-white shadow-[0_8px_24px_rgba(25,82,241,0.25)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70">
+					className="rounded-full bg-gradient-to-r from-[#1952F1] to-[#418DF8] px-8 py-3.5 text-[16px] font-semibold text-white shadow-[0_8px_24px_rgba(25,82,241,0.25)] transition duration-200 hover:brightness-110 hover:shadow-[0_10px_28px_rgba(25,82,241,0.32)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70">
 					{status === 'sending' ? 'Sending…' : 'Send'}
 				</button>
 			</div>

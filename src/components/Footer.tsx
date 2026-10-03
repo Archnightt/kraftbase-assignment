@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react';
 import CTAButton from './CTAButton';
+import Reveal from './Reveal';
 import { useContactModal } from './ContactModal';
 import logoImg from '../assets/logo.svg';
 import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube } from 'react-icons/fa6';
@@ -74,23 +75,25 @@ export default function Footer() {
 
 					<div className="relative z-10 mx-auto w-full max-w-[860px] text-center">
 						{/* Logo */}
-						<div className="mx-auto mb-10 grid size-[64px] place-items-center rounded-full bg-white shadow-[0_12px_38px_rgba(69,101,174,0.10)] sm:mb-12 sm:size-[80px]">
+						<div className="mx-auto mb-10 grid size-[64px] place-items-center rounded-full bg-white shadow-[0_12px_38px_rgba(69,101,174,0.10)] transition-transform duration-300 hover:scale-[1.04] sm:mb-12 sm:size-[80px]">
 							<img src={logoImg} alt="Collectedge" className="h-[28px] w-[28px] object-contain sm:h-[36px] sm:w-[36px]" />
 						</div>
 
 						{/* Eyebrow */}
-						<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
-							Contact us
-						</p>
-						<h2 className="mx-auto max-w-[800px] text-[28px] font-semibold leading-[1.13] tracking-[-0.055em] text-[#07133a] sm:text-[36px] md:text-[44px] lg:text-[48px]">
-							We also need to <span className={gradientText}>have contact</span>
-							<br />
-							form on the <span className={gradientText}>website</span>
-						</h2>
-						<p className="mx-auto mt-6 max-w-[560px] text-[16px] leading-[1.55] tracking-[-0.02em] text-[#777b84] sm:text-[18px] md:mt-8 md:text-[20px]">
-							Our tool is designed with agencies &amp; collection managers in mind, ensuring user-friendly experience tailored to their
-							needs.
-						</p>
+						<Reveal>
+							<p className="mb-4 text-[14px] sm:text-[16px] md:text-[20px] font-semibold bg-gradient-to-r from-[#1952F1] to-[#418DF8] bg-transparent bg-clip-text inline-block text-transparent">
+								Contact us
+							</p>
+							<h2 className="mx-auto max-w-[800px] text-[28px] font-semibold leading-[1.13] tracking-[-0.055em] text-[#07133a] sm:text-[36px] md:text-[44px] lg:text-[48px]">
+								We also need to <span className={gradientText}>have contact</span>
+								<br />
+								form on the <span className={gradientText}>website</span>
+							</h2>
+							<p className="mx-auto mt-6 max-w-[560px] text-[16px] leading-[1.55] tracking-[-0.02em] text-[#777b84] sm:text-[18px] md:mt-8 md:text-[20px]">
+								Our tool is designed with agencies &amp; collection managers in mind, ensuring user-friendly experience tailored to their
+								needs.
+							</p>
+						</Reveal>
 
 						<div className="mt-7 md:mt-8">
 							<CTAButton label="Get Started" size="default" onClick={openContact} />
@@ -104,17 +107,17 @@ export default function Footer() {
 						<nav aria-label="Footer navigation" className="mt-5">
 							<ul className="space-y-3 text-[14px] leading-none text-[#777b84] sm:text-[15px]">
 								<li>
-									<a href="#top" className="transition-colors hover:text-[#1d61e9]">
+									<a href="#top" className="transition-colors duration-200 hover:text-[#1d61e9]">
 										Home
 									</a>
 								</li>
 								<li>
-									<a href="#lenders" className="transition-colors hover:text-[#1d61e9]">
+									<a href="#lenders" className="transition-colors duration-200 hover:text-[#1d61e9]">
 										For Lenders
 									</a>
 								</li>
 								<li>
-									<a href="#agencies" className="transition-colors hover:text-[#1d61e9]">
+									<a href="#agencies" className="transition-colors duration-200 hover:text-[#1d61e9]">
 										For Collection Agencies
 									</a>
 								</li>
@@ -123,7 +126,7 @@ export default function Footer() {
 					</section>
 
 					<section className="flex flex-col items-center px-4 py-4 text-center lg:py-7 order-1 lg:order-2">
-						<a href="#top" className="inline-flex items-center gap-2 text-[20px] font-semibold tracking-[-0.045em] sm:text-[24px]">
+						<a href="#top" className="inline-flex items-center gap-2 text-[20px] font-semibold tracking-[-0.045em] transition-opacity duration-200 hover:opacity-80 sm:text-[24px]">
 							<img src={logoImg} alt="" className="size-[28px] object-contain" />
 							Collectedge
 						</a>
@@ -138,7 +141,7 @@ export default function Footer() {
 						<ul className="mt-5 space-y-4 text-[14px] leading-[1.35] text-[#777b84] sm:text-[15px]">
 							<li className="flex items-center justify-center gap-2.5 lg:justify-start">
 								<HiOutlineEnvelope className="size-5 shrink-0 text-[#9da0a6]" aria-hidden="true" />
-								<a href="mailto:info@letsdial.com" className="hover:text-[#1d61e9]">
+								<a href="mailto:info@letsdial.com" className="transition-colors duration-200 hover:text-[#1d61e9]">
 									info@letsdial.com
 								</a>
 							</li>
@@ -221,10 +224,16 @@ function ArchFrame({ children, style }: { children: ReactNode; style?: CSSProper
 function SocialBubble({ social, style }: { social: (typeof socials)[number]; style: CSSProperties }) {
 	const { Icon } = social;
 	return (
-		<span
+		<a
+			href={social.href}
+			target="_blank"
+			rel="noreferrer"
+			aria-label={social.label}
 			style={style}
-			className="absolute grid size-[48px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/40 bg-gradient-to-b from-[#f3f4f7]/80 to-[#e5e8f0]/90 shadow-[0_12px_32px_rgba(150,155,170,0.15)] backdrop-blur-md">
-			<Icon className={`size-[20px] ${social.className}`} />
-		</span>
+			className="pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2">
+			<span className="grid size-[48px] place-items-center rounded-full border border-white/40 bg-gradient-to-b from-[#f3f4f7]/80 to-[#e5e8f0]/90 shadow-[0_12px_32px_rgba(150,155,170,0.15)] backdrop-blur-md transition-transform duration-300 hover:scale-110 hover:shadow-[0_14px_28px_rgba(69,101,174,0.18)]">
+				<Icon className={`size-[20px] ${social.className}`} />
+			</span>
+		</a>
 	);
 }

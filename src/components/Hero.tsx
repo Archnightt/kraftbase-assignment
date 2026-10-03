@@ -139,8 +139,10 @@ export default function Hero() {
             rounded-[12px]
             border border-slate-200/80
             bg-white/20 px-[18px]
+            transition-all duration-300
+            hover:border-slate-300 hover:bg-white/55 hover:shadow-[0_6px_16px_rgba(41,67,110,0.08)]
           ">
-						<img src={logo.src} alt={logo.alt} className="h-5 w-auto" />
+						<img src={logo.src} alt={logo.alt} className="h-5 w-auto transition-transform duration-300 hover:scale-[1.04]" />
 					</div>
 				))}
 			</div>
@@ -159,17 +161,19 @@ export default function Hero() {
 				BLANK FILLER CARDS
 			========================================================= */}
 			{BLANK_CARDS.map((card, i) => (
-				<img
+				<motion.img
 					key={i}
 					src={blankCardImg}
 					alt=""
 					aria-hidden="true"
 					draggable={false}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.8, delay: 0.15 + i * 0.08 }}
 					className="pointer-events-none absolute -z-10 hidden max-w-none select-none lg:block"
 					style={{
 						left: `${card.cx}%`,
 						top: `${card.cy}%`,
-						// Responsive scaling for blank cards
 						width: `min(30vw, ${card.w}px)`,
 						transform: `translate(-50%, -50%) rotate(${card.rot}deg)`,
 					}}
@@ -188,8 +192,10 @@ export default function Hero() {
 						<motion.div
 							initial={{ opacity: 0, x: c.fromX, y: 20 }}
 							animate={{ opacity: 1, x: 0, y: 0 }}
-							transition={{ duration: c.dur, delay: c.delay }}>
-							<img src={c.img} alt={c.alt} draggable={false} className={`block w-full max-w-none ${c.shadow}`} />
+							transition={{ duration: c.dur, delay: c.delay, ease: [0.22, 1, 0.36, 1] }}>
+							<div className="float-y" style={{ animationDelay: `${c.delay + 0.4}s`, animationDuration: `${5.8 + (c.delay % 1) * 2}s` }}>
+								<img src={c.img} alt={c.alt} draggable={false} className={`block w-full max-w-none ${c.shadow}`} />
+							</div>
 						</motion.div>
 					</div>
 				))}
@@ -200,11 +206,16 @@ export default function Hero() {
 						className="absolute z-20"
 						style={{ left: `${ic.left}%`, top: `${ic.top}%`, transform: 'translate(-50%, -50%)' }}>
 						<motion.div
-							initial={{ opacity: 0, scale: 0 }}
+							initial={{ opacity: 0, scale: 0.7 }}
 							animate={{ opacity: 1, scale: 1 }}
-							transition={{ duration: 0.5, delay: ic.delay }}
-							className="flex items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)]"
-							style={{ width: `${ic.size}vw`, height: `${ic.size}vw` }}>
+							transition={{ type: 'spring', stiffness: 260, damping: 18, delay: ic.delay }}
+							className="float-y flex items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)]"
+							style={{
+								width: `${ic.size}vw`,
+								height: `${ic.size}vw`,
+								animationDelay: `${ic.delay + 0.2}s`,
+								animationDuration: `${4.8 + ic.delay}s`,
+							}}>
 							<img src={ic.img} alt={ic.alt} style={{ width: `${ic.glyph}vw`, height: `${ic.glyph}vw` }} />
 						</motion.div>
 					</div>
@@ -288,6 +299,7 @@ export default function Hero() {
 										}}>
 										<button
 											type="button"
+											onClick={() => document.getElementById('lenders')?.scrollIntoView({ behavior: 'smooth' })}
 											className="relative flex cursor-pointer items-center justify-center gap-2 rounded-[15px] bg-white px-7 py-[13px] text-sm font-semibold tracking-wide text-slate-700 shadow-[0_1px_3px_rgba(0,0,0,0.03)] transition-all duration-300 hover:bg-slate-50">
 											<span>How We work</span>
 											<span className="inline-flex transition-transform duration-300 ease-out group-hover:translate-x-[2px] group-hover:translate-y-[2px]">
@@ -318,23 +330,6 @@ export default function Hero() {
 					</p>
 					<div className="h-px w-8 border-t border-dashed border-[#CBD5E4] sm:w-16 md:w-24" />
 				</div>
-
-				<style>{`
-					@keyframes marquee {
-						from { transform: translateX(0); }
-						to { transform: translateX(-50%); }
-					}
-					.animate-marquee {
-						animation: marquee 30s linear infinite;
-						will-change: transform;
-					}
-					.animate-marquee:hover {
-						animation-play-state: paused;
-					}
-					@media (prefers-reduced-motion: reduce) {
-						.animate-marquee { animation: none; }
-					}
-				`}</style>
 
 				<div className="relative mx-auto w-full overflow-hidden" style={logoMask}>
 					<div className="animate-marquee flex w-max">
