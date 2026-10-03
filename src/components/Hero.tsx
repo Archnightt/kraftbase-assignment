@@ -30,7 +30,6 @@ const heroBg = {
 	].join(', '),
 };
 
-// Blank filler cards
 const BLANK_CARDS = [
 	{ cx: 9.1, cy: 34.5, w: 357, rot: 0 },
 	{ cx: 8.6, cy: 59.7, w: 289, rot: -12 },
@@ -157,9 +156,6 @@ export default function Hero() {
 			{/* BACKGROUND */}
 			<div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20" style={heroBg} />
 
-			{/* =========================================================
-				BLANK FILLER CARDS
-			========================================================= */}
 			{BLANK_CARDS.map((card, i) => (
 				<motion.img
 					key={i}
@@ -180,9 +176,6 @@ export default function Hero() {
 				/>
 			))}
 
-			{/* =========================================================
-				FLOATING CARDS + ICONS (positioned relative to the section)
-			========================================================= */}
 			<div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
 				{CARDS.map((c) => (
 					<div
@@ -193,7 +186,7 @@ export default function Hero() {
 							initial={{ opacity: 0, x: c.fromX, y: 20 }}
 							animate={{ opacity: 1, x: 0, y: 0 }}
 							transition={{ duration: c.dur, delay: c.delay, ease: [0.22, 1, 0.36, 1] }}>
-							<div className="float-y" style={{ animationDelay: `${c.delay + 0.4}s`, animationDuration: `${5.8 + (c.delay % 1) * 2}s` }}>
+							<div>
 								<img src={c.img} alt={c.alt} draggable={false} className={`block w-full max-w-none ${c.shadow}`} />
 							</div>
 						</motion.div>
@@ -209,7 +202,7 @@ export default function Hero() {
 							initial={{ opacity: 0, scale: 0.7 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ type: 'spring', stiffness: 260, damping: 18, delay: ic.delay }}
-							className="float-y flex items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)]"
+							className="flex items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(61,93,153,0.12)]"
 							style={{
 								width: `${ic.size}vw`,
 								height: `${ic.size}vw`,
@@ -222,10 +215,6 @@ export default function Hero() {
 				))}
 			</div>
 
-			{/* =========================================================
-				MAIN CONTENT WRAPPER 
-				(Groups floating elements & central text together)
-			========================================================= */}
 			<div className="relative flex flex-grow flex-col items-center justify-center pt-28 pb-12 lg:pt-32 lg:pb-24">
 				{/* -- CENTRAL TEXT -- */}
 				<div className="relative z-30 mx-auto w-full max-w-[1160px] px-4 text-center sm:px-6 lg:px-8">
@@ -267,7 +256,7 @@ export default function Hero() {
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
-						className="mx-auto mb-10 max-w-[720px] text-[16px] font-medium leading-[1.55] text-slate-500 sm:text-[18px]">
+						className="mx-auto mb-10 max-w-[720px] text-[16px] font-regular leading-[1.55] text-[#5b5f68] sm:text-[18px] lg:max-w-[620px] lg:text-[19px] lg:leading-[1.45]">
 						Our tool is designed with agencies &amp; collection managers in mind, ensuring user-friendly experience tailored to their needs
 					</motion.p>
 
@@ -342,7 +331,7 @@ export default function Hero() {
 			</motion.div>
 
 			{/* =========================================================
-				BOTTOM SECTION BLEND
+				SECTION BLEND
 			========================================================= */}
 			<div
 				aria-hidden="true"

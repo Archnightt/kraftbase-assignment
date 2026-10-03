@@ -37,7 +37,7 @@ function NavLink({ label, href, isPillHere, isActive, setRef, onFocusLink, onSel
 			href={href}
 			onClick={onSelect}
 			onFocus={onFocusLink}
-			className="relative rounded-full px-4 py-2.5 outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb]/40 select-none cursor-pointer">
+			className="relative rounded-full px-[10px] py-2.5 outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb]/40 select-none cursor-pointer">
 			<span className="relative z-10 grid">
 				<span aria-hidden="true" className="invisible col-start-1 row-start-1 font-semibold">
 					{label}
@@ -271,25 +271,27 @@ export default function Navbar() {
 			</AnimatePresence>
 
 			<div
-				className={`fixed left-1/2 top-5 z-[100] w-[90vw] md:w-[774px] max-w-[774px] h-fit transition-transform duration-300 ease-in-out -translate-x-1/2 ${
+				className={`fixed left-1/2 top-5 md:top-[14px] z-[100] w-[90vw] md:w-[846px] max-w-[846px] h-fit transition-transform duration-300 ease-in-out -translate-x-1/2 ${
 					isHidden ? 'translate-y-[-150%] lg:translate-y-0' : 'translate-y-0'
 				}`}>
 				{/* Main Container*/}
-				<div className="w-full h-fit p-[4px] md:p-[6px] rounded-[32px] md:rounded-[36px] border border-[#d9e2e8] backdrop-blur-md transition-all duration-300">
+				<div className="w-full h-fit p-[4px] rounded-[32px] md:rounded-[34px] border border-[#d9e2e8] backdrop-blur-md transition-all duration-300">
 					<div
-						className={`bg-white/10 overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? 'rounded-[20px] shadow-lg' : 'rounded-[28px] md:rounded-[32px]'}`}>
+						className={`bg-white/10 overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? 'rounded-[20px] shadow-lg' : 'rounded-[28px] md:rounded-[30px]'}`}>
 						{/* Inner White Capsule */}
 						<div
 							className={`bg-white/60 border-1 border-white/40 overflow-hidden transition-all duration-300
-									${isMobileMenuOpen ? 'rounded-[20px] shadow-lg' : 'rounded-[26px] md:rounded-[30px]'}`}>
+									${isMobileMenuOpen ? 'rounded-[20px] shadow-lg' : 'rounded-[26px] md:rounded-[29px]'}`}>
 							{/* Top Bar (Always Visible) */}
-							<nav aria-label="Main navigation" className="relative flex h-[54px] md:h-[60px] items-center px-4 md:px-5">
+							<nav
+								aria-label="Main navigation"
+								className="relative flex h-[54px] md:h-[58px] items-center pl-4 pr-4 md:pl-[18px] md:pr-[10px]">
 								{/* Brand */}
 								<a
 									href="#top"
 									aria-label="Collectedge home"
-									className="flex shrink-0 items-center gap-1.5 md:gap-2 text-[14px] md:text-[15px] font-medium text-[#14161a] transition-opacity duration-200 hover:opacity-80">
-									<img src={logoImg} alt="" className="h-[20px] md:h-[22px] w-auto" />
+									className="flex shrink-0 items-center gap-1.5 md:gap-[7px] text-[14px] font-medium text-[#14161a] transition-opacity duration-200 hover:opacity-80">
+									<img src={logoImg} alt="" className="h-[20px] w-auto" />
 									<span>Collectedge</span>
 								</a>
 
@@ -346,7 +348,7 @@ export default function Navbar() {
 								{/* Desktop Contact Button */}
 								<div className="ml-auto shrink-0 hidden lg:block">
 									<div
-										className="group inline-flex cursor-pointer transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] w-[110px] h-[38px] md:w-[132px] md:h-[42px]"
+										className="group inline-flex cursor-pointer transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] w-[110px] h-[38px] md:w-[132px] md:h-[39px]"
 										style={{
 											boxSizing: 'border-box',
 											padding: '3px',
@@ -415,7 +417,7 @@ export default function Navbar() {
 															if (link.id === 'contact') scrollToContact();
 															else setIsMobileMenuOpen(false);
 														}}
-														className={`block py-4 text-[16px] transition-colors duration-200 hover:text-[#3c87f8] ${active === link.id ? 'font-medium text-[#3c87f8]' : 'font-medium text-[#4b5563]'}`}>
+														className={`block py-4 text-[18px] transition-colors duration-200 hover:text-[#3c87f8] ${active === link.id ? 'font-medium text-[#3c87f8]' : 'font-medium text-[#4b5563]'}`}>
 														{link.label}
 													</a>
 												</li>

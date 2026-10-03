@@ -1,32 +1,19 @@
-# React + TypeScript + Vite
+# Frontend Engineer Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A responsive implementation of the provided Figma design, built as a frontend-only assignment with an emphasis on visual fidelity, interaction detail, and maintainable component structure.
 
-Currently, two official plugins are available:
+**Live site:** [harshk-assignment.vercel.app](https://harshk-assignment.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React + TypeScript
+- Tailwind CSS
+- Motion (Framer-Motion)
+- React Icons
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Implementation notes
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+- The page is split into focused, reusable sections and uses responsive layouts and sizing across mobile, tablet, and desktop breakpoints.
+- The navbar includes magnetic hover treatment.
+- Motion is used selectively for staggered hero entry, scroll-in reveals, tab transitions, and subtle hover feedback on interactive elements.
+- WebP format was preferred over AVIF for image assets to maintain text sharpness. SVGs remain SVGs for sharp, scalable interface graphics.
