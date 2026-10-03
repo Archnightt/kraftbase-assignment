@@ -64,6 +64,24 @@ const socials = [
 	},
 ];
 
+const mobileSocials = [socials[3], socials[1], socials[2], socials[0]];
+
+function MobileSocials() {
+	return (
+		<ul className="mt-8 flex items-center justify-center gap-4 md:hidden">
+			{mobileSocials.map(({ label, href, Icon, className }) => (
+				<li key={label}>
+					<a href={href} target="_blank" rel="noreferrer" aria-label={label}>
+						<span className="grid size-[48px] place-items-center rounded-full border border-white/40 bg-gradient-to-b from-[#f3f4f7]/80 to-[#e5e8f0]/90 shadow-[0_12px_32px_rgba(150,155,170,0.15)] backdrop-blur-md transition-transform duration-300 active:scale-95">
+							<Icon className={`size-[20px] ${className}`} />
+						</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	);
+}
+
 export default function Footer() {
 	const { openContact } = useContactModal();
 
@@ -98,6 +116,7 @@ export default function Footer() {
 						<div className="mt-7 md:mt-8">
 							<CTAButton label="Get Started" size="default" onClick={openContact} />
 						</div>
+						<MobileSocials></MobileSocials>
 					</div>
 				</div>
 
@@ -126,7 +145,9 @@ export default function Footer() {
 					</section>
 
 					<section className="flex flex-col items-center px-4 py-4 text-center lg:py-7 order-1 lg:order-2">
-						<a href="#top" className="inline-flex items-center gap-2 text-[20px] font-semibold tracking-[-0.045em] transition-opacity duration-200 hover:opacity-80 sm:text-[24px]">
+						<a
+							href="#top"
+							className="inline-flex items-center gap-2 text-[20px] font-semibold tracking-[-0.045em] transition-opacity duration-200 hover:opacity-80 sm:text-[24px]">
 							<img src={logoImg} alt="" className="size-[28px] object-contain" />
 							Collectedge
 						</a>
