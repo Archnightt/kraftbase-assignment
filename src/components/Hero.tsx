@@ -114,7 +114,6 @@ const ICONS = [
 	{ img: DialerImg, alt: 'Dialer', left: 88.1, top: 56.4, size: 3.7, glyph: 2.6, delay: 0.65 },
 ];
 
-// Wider, softer fade so logos are nearly gone well before the screen edges (matches Figma).
 const MASK =
 	'linear-gradient(to right, transparent 0%, transparent 8%, rgba(0,0,0,0.5) 20%, black 34%, black 66%, rgba(0,0,0,0.5) 80%, transparent 92%, transparent 100%)';
 const logoMask = { maskImage: MASK, WebkitMaskImage: MASK };
@@ -151,11 +150,9 @@ export default function Hero() {
 	return (
 		<section
 			id="top"
-			// Flex layout ensures natural flow to prevent vertical overlaps
+			// Flex layout to prevent vertical overlaps
 			className="relative isolate flex min-h-screen w-full flex-col justify-between overflow-hidden bg-[#fbfdff]">
-			{/* =========================================================
-				BACKGROUND
-			========================================================= */}
+			{/* BACKGROUND */}
 			<div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20" style={heroBg} />
 
 			{/* =========================================================

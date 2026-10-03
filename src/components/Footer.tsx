@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react';
 import CTAButton from './CTAButton';
+import { useContactModal } from './ContactModal';
 import logoImg from '../assets/logo.svg';
 import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 import { HiOutlineEnvelope, HiOutlineMapPin } from 'react-icons/hi2';
@@ -63,6 +64,8 @@ const socials = [
 ];
 
 export default function Footer() {
+	const { openContact } = useContactModal();
+
 	return (
 		<footer id="contact" className="relative overflow-hidden bg-white px-4 pt-8 text-[#111318] sm:px-6 md:pt-14 lg:px-8">
 			<div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-t-[44px] bg-white px-5 pt-4 sm:rounded-t-[68px] sm:px-10 md:pt-14 lg:px-16 lg:pt-20">
@@ -90,7 +93,7 @@ export default function Footer() {
 						</p>
 
 						<div className="mt-7 md:mt-8">
-							<CTAButton label="Get Started" size="default" />
+							<CTAButton label="Get Started" size="default" onClick={openContact} />
 						</div>
 					</div>
 				</div>
